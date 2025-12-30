@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MEMORIES | BRAVEHART LIFEOS</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <script>
+        if (!sessionStorage.getItem('isLoggedIn')) {
+            window.location.href = 'login.html';
+        }
+    </script>
+
+    <header>
+        <div class="header-container">
+            <div class="brand">
+                <h1>🦁 BRAVEHART LIFEOS</h1>
+                <p class="tagline">OPERATING SYSTEM FOR A LEGENDARY LIFE</p>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">🏠 DASHBOARD</a></li>
+                    <li><a href="profile.html">👤 PROFILE</a></li>
+                    <li><a href="memories.html" class="active">📸 MEMORIES</a></li>
+                    <li><a href="videos.html">🎬 VIDEOS</a></li>
+                    <li><a href="people.html">👥 PEOPLE</a></li>
+                    <li><a href="skills.html">⚡ SKILLS</a></li>
+                    <li><a href="goals.html">🎯 GOALS</a></li>
+                    <li><a href="timeline.html">📅 TIMELINE</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="page-header">
+            <h2>📸 MEMORY ARCHIVE 📸</h2>
+        </section>
+
+        <div id="memories-container" class="memory-grid">
+            <div style="text-align: center; grid-column: 1/-1; padding: 3rem; opacity: 0.5;">
+                <p>ACCESSING VISUAL RECORDS...</p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>🦁 BRAVEHART LIFEOS - BUILDING A LEGENDARY LIFE, ONE DAY AT A TIME 🦁</p>
+        </div>
+    </footer>
+
+    <script>
+        async function loadMemories() {
+            try {
+                // 1. Fetch data from the JSON brain
+                const response = await fetch('data.json');
+                const data = await response.json();
+                const container = document.getElementById('memories-container');
+                
+                container.innerHTML = ''; // Clear loading message
+
+                if (!data.memories || data.memories.length === 0) {
+                    container.innerHTML = '<p style="grid-column: 1/-1; text-align: center;">NO RECORDS FOUND.</p>';
+                    return;
+                }
+
+                // 2. Loop through memories with an index for staggered animation
+                data.memories.forEach((memory, index) => {
+                    const memoryCard = document.createElement('div');
+                    memoryCard.className = 'memory-item';
+                    
+                    // Set initial state for the fade-in animation
+                    memoryCard.style.opacity = '0';
+                    memoryCard.style.transform = 'translateY(20px)';
+                    memoryCard.style.transition = 'all 0.6s cubic-bezier(0.23, 1, 0.32, 1)';
+
+                    // 3. Build HTML Structure
+                    // 'loading="lazy"' fixes the load delay
+                    // 'memory-caption' is the part that slides up via CSS
+                    memoryCard.innerHTML = `
+                        <img src="${memory.image}" loading="lazy" alt="${memory.title}">
+                        <div class="memory-caption">
+                            <span class="date">${memory.date.toUpperCase()}</span>
+                            <h3>${memory.title}</h3>
+                            <p>Visual Log Decrypted. Discipline maintained.</p>
+                        </div>
+                    `;
+
+                    container.appendChild(memoryCard);
+
+                    // 4. Trigger staggered entrance
+                    // Each card appears 100ms after the previous one
+                    setTimeout(() => {
+                        memoryCard.style.opacity = '1';
+                        memoryCard.style.transform = 'translateY(0)';
+                    }, index * 100);
+                });
+
+            } catch (error) {
+                console.error("Memory Retrieval Error:", error);
+                document.getElementById('memories-container').innerHTML = 
+                    '<p style="grid-column: 1/-1; text-align: center; color: var(--accent-red);">CRITICAL ERROR: ARCHIVE OFFLINE.</p>';
+            }
+        }
+
+        // Initialize when the DOM is ready
+        document.addEventListener('DOMContentLoaded', loadMemories);
+    </script>
+</body>
+</html>

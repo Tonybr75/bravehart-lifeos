@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SKILLS MATRIX | BRAVEHART LIFEOS</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <script>
+        if (!sessionStorage.getItem('isLoggedIn')) {
+            window.location.href = 'login.html';
+        }
+    </script>
+
+    <header>
+        <div class="header-container">
+            <div class="brand">
+                <h1>🦁 BRAVEHART LIFEOS</h1>
+                <p class="tagline">OPERATING SYSTEM FOR A LEGENDARY LIFE</p>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">🏠 DASHBOARD</a></li>
+                    <li><a href="profile.html">👤 PROFILE</a></li>
+                    <li><a href="memories.html">📸 MEMORIES</a></li>
+                    <li><a href="videos.html">🎬 VIDEOS</a></li>
+                    <li><a href="people.html">👥 PEOPLE</a></li>
+                    <li><a href="skills.html" class="active">⚡ SKILLS</a></li>
+                    <li><a href="goals.html">🎯 GOALS</a></li>
+                    <li><a href="timeline.html">📅 TIMELINE</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="page-header">
+            <h2>⚡ SKILLS MATRIX ⚡</h2>
+        </section>
+
+        <div id="skills-container">
+            <div style="text-align: center; padding: 3rem; opacity: 0.5;">
+                <p>SYNCING CAPABILITY DATA...</p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>🦁 BRAVEHART LIFEOS - BUILDING A LEGENDARY LIFE, ONE DAY AT A TIME 🦁</p>
+        </div>
+    </footer>
+
+    <script>
+        async function syncSkills() {
+            try {
+                const response = await fetch('data.json');
+                const data = await response.json();
+                const container = document.getElementById('skills-container');
+                
+                // Clear the loading message
+                container.innerHTML = '';
+
+                // Group skills by category
+                const categories = [...new Set(data.skills.map(s => s.category))];
+
+                categories.forEach(cat => {
+                    // Create Category Section
+                    const section = document.createElement('div');
+                    section.className = 'skill-category';
+                    section.innerHTML = `<h3 class="category-title">${cat.toUpperCase()}</h3>`;
+
+                    // Filter skills for this category and build items
+                    const catSkills = data.skills.filter(s => s.category === cat);
+                    catSkills.forEach(skill => {
+                        const levelClass = skill.level.toLowerCase();
+                        section.innerHTML += `
+                            <div class="skill-item">
+                                <div class="skill-header">
+                                    <span>${skill.name}</span>
+                                    <span class="skill-level ${levelClass}">${skill.level.toUpperCase()}</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: ${skill.progress}%;"></div>
+                                </div>
+                                <p class="skill-description">${skill.description || ''}</p>
+                            </div>
+                        `;
+                    });
+
+                    container.appendChild(section);
+                });
+
+            } catch (error) {
+                console.error("Skills Sync Error:", error);
+                document.getElementById('skills-container').innerHTML = 
+                    `<p style="color: var(--accent-red); text-align: center;">CRITICAL ERROR: DATA SYNC FAILED.</p>`;
+            }
+        }
+
+        window.onload = syncSkills;
+    </script>
+</body>
+</html>

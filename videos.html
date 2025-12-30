@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIDEO LOGS | BRAVEHART LIFEOS</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <script>
+        if (!sessionStorage.getItem('isLoggedIn')) {
+            window.location.href = 'login.html';
+        }
+    </script>
+
+    <header>
+        <div class="header-container">
+            <div class="brand">
+                <h1>🦁 BRAVEHART LIFEOS</h1>
+                <p class="tagline">OPERATING SYSTEM FOR A LEGENDARY LIFE</p>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">🏠 DASHBOARD</a></li>
+                    <li><a href="profile.html">👤 PROFILE</a></li>
+                    <li><a href="memories.html">📸 MEMORIES</a></li>
+                    <li><a href="videos.html" class="active">🎬 VIDEOS</a></li>
+                    <li><a href="people.html">👥 PEOPLE</a></li>
+                    <li><a href="skills.html">⚡ SKILLS</a></li>
+                    <li><a href="goals.html">🎯 GOALS</a></li>
+                    <li><a href="timeline.html">📅 TIMELINE</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="page-header">
+            <h2>🎬 VIDEO LOGS 🎬</h2>
+        </section>
+
+        <div style="text-align: center; margin-bottom: 3rem;">
+            <a href="https://photos.app.goo.gl/2ALvEetZmdewdX8v5" target="_blank" class="action-btn-styled" style="display: inline-block; width: auto; padding: 10px 30px; text-decoration: none;">
+                🔗 VIEW EXTERNAL VIDEO CLOUD
+            </a>
+        </div>
+
+        <div id="video-gallery" class="video-gallery">
+            <div style="text-align: center; padding: 3rem; grid-column: 1/-1; opacity: 0.5;">
+                <p>BUFFERING TACTICAL LOGS...</p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>🦁 BRAVEHART LIFEOS - BUILDING A LEGENDARY LIFE 🦁</p>
+        </div>
+    </footer>
+
+    <script>
+        async function syncVideos() {
+            try {
+                const response = await fetch('data.json');
+                const data = await response.json();
+                const gallery = document.getElementById('video-gallery');
+                
+                // Clear the loading message
+                gallery.innerHTML = '';
+
+                if (!data.videos || data.videos.length === 0) {
+                    gallery.innerHTML = '<p style="text-align: center; width: 100%; grid-column: 1/-1; opacity: 0.6;">No local video logs found. Access cloud link above.</p>';
+                    return;
+                }
+
+                data.videos.forEach(vid => {
+                    const card = document.createElement('div');
+                    card.className = 'video-card';
+                    
+                    card.innerHTML = `
+                        <div class="video-container">
+                            <video controls poster="${vid.thumbnail || ''}">
+                                <source src="${vid.url}" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                        <div class="video-info">
+                            <span class="video-date">${vid.date.toUpperCase()}</span>
+                            <h3>${vid.title}</h3>
+                            <p>${vid.description || ''}</p>
+                        </div>
+                    `;
+                    gallery.appendChild(card);
+                });
+            } catch (error) {
+                console.error("Video Sync Error:", error);
+                document.getElementById('video-gallery').innerHTML = '<p style="text-align: center; width: 100%; color: var(--accent-red);">ERROR: VIDEO DATABASE DISCONNECTED.</p>';
+            }
+        }
+
+        window.onload = syncVideos;
+    </script>
+</body>
+</html>

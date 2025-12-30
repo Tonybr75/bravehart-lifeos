@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROFILE | BRAVEHART LIFEOS</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <script>
+        if (!sessionStorage.getItem('isLoggedIn')) {
+            window.location.href = 'login.html';
+        }
+    </script>
+
+    <header>
+        <div class="header-container">
+            <div class="brand">
+                <h1>🦁 BRAVEHART LIFEOS</h1>
+                <p class="tagline">OPERATING SYSTEM FOR A LEGENDARY LIFE</p>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">🏠 DASHBOARD</a></li>
+                    <li><a href="profile.html" class="active">👤 PROFILE</a></li>
+                    <li><a href="memories.html">📸 MEMORIES</a></li>
+                    <li><a href="videos.html">🎬 VIDEOS</a></li>
+                    <li><a href="people.html">👥 PEOPLE</a></li>
+                    <li><a href="skills.html">⚡ SKILLS</a></li>
+                    <li><a href="goals.html">🎯 GOALS</a></li>
+                    <li><a href="timeline.html">📅 TIMELINE</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="page-header">
+            <h2>⚡ MY IDENTITY ⚡</h2>
+        </section>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 3rem;">
+            <div class="profile-section">
+                <h3 style="color: var(--primary-blue); margin-bottom: 1.5rem;">📋 PERSONAL INFORMATION</h3>
+                <div class="info-grid">
+                    <div class="info-item"><strong>Full Name:</strong> <span id="val-name">Loading...</span></div>
+                    <div class="info-item"><strong>Born:</strong> <span id="val-born">Loading...</span></div>
+                    <div class="info-item"><strong>Location:</strong> <span id="val-location">Loading...</span></div>
+                    <div class="info-item"><strong>Occupation:</strong> <span id="val-occ">Loading...</span></div>
+                    <div class="info-item"><strong>Mission:</strong> <span id="val-mission" style="color: var(--accent-gold);">"Loading..."</span></div>
+                </div>
+            </div>
+            <div class="profile-section">
+                <h3 style="color: var(--primary-blue); margin-bottom: 1.5rem;">⚖️ MY PHILOSOPHY</h3>
+                <div style="background: rgba(255,255,255,0.05); padding: 1.5rem; border-left: 4px solid var(--accent-gold);">
+                    <p id="val-philosophy">My life is guided by a commitment to constant growth, physical discipline, and intellectual curiosity. I believe in taking extreme ownership of one's destiny and protecting those who cannot protect themselves.</p>
+                </div>
+            </div>
+        </div>
+
+        <h3 style="margin-bottom: 1.5rem; border-bottom: 1px solid var(--secondary-steel);">📍 CURRENT STATUS</h3>
+        <div id="status-container" class="status-grid">
+            </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 3rem;">
+            <div class="profile-section">
+                <h3 style="color: var(--primary-blue); margin-bottom: 1rem;">💎 WHAT I VALUE</h3>
+                <div id="values-container" class="status-grid" style="grid-template-columns: 1fr 1fr;">
+                    </div>
+            </div>
+            <div class="profile-section">
+                <h3 style="color: var(--primary-blue); margin-bottom: 1rem;">🚀 VISION & AMBITIONS</h3>
+                <ul id="ambition-list" class="ambition-list">
+                    </ul>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>🦁 BRAVEHART LIFEOS - BUILDING A LEGENDARY LIFE, ONE DAY AT A TIME 🦁</p>
+        </div>
+    </footer>
+
+    <script>
+        async function syncProfile() {
+            try {
+                const response = await fetch('data.json');
+                const data = await response.json();
+                const p = data.profile;
+
+                // 1. Personal Info
+                document.getElementById('val-name').innerText = p.name;
+                document.getElementById('val-born').innerText = p.born;
+                document.getElementById('val-location').innerText = p.location;
+                document.getElementById('val-occ').innerText = p.occupation;
+                document.getElementById('val-mission').innerText = `"${p.mission}"`;
+                
+                // Philosophy (Fallback to static text if JSON is empty)
+                if(p.philosophy) document.getElementById('val-philosophy').innerText = p.philosophy;
+
+                // 2. Status Grid
+                const statusContainer = document.getElementById('status-container');
+                statusContainer.innerHTML = '';
+                p.statusCards.forEach(card => {
+                    statusContainer.innerHTML += `
+                        <div class="stat-card" style="border-left: 4px solid ${card.color};">
+                            <h4>${card.title}</h4>
+                            <p>${card.content}</p>
+                        </div>
+                    `;
+                });
+
+                // 3. Values
+                const valuesContainer = document.getElementById('values-container');
+                valuesContainer.innerHTML = '';
+                p.values.forEach(v => {
+                    valuesContainer.innerHTML += `<div class="value-item"><strong>${v.key}:</strong> ${v.val}</div>`;
+                });
+
+                // 4. Ambitions
+                const ambitionList = document.getElementById('ambition-list');
+                ambitionList.innerHTML = '';
+                p.ambitions.forEach(a => {
+                    ambitionList.innerHTML += `<li>${a}</li>`;
+                });
+
+            } catch (e) { console.error("Profile Sync Error", e); }
+        }
+        window.onload = syncProfile;
+    </script>
+</body>
+</html>

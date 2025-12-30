@@ -1,0 +1,173 @@
+{
+  "stats": {
+    "birthDate": "1995-01-01",
+    "version": "1.0.2",
+    "status": "ACTIVE"
+  },
+  "profile": {
+    "name": "Bravehart Warrior",
+    "born": "January 1st, 1995 | Metropolis",
+    "location": "Nairobi, Kenya",
+    "occupation": "Systems Architect",
+    "mission": "To build a legacy of strength and wisdom.",
+    "philosophy": "My life is guided by a commitment to constant growth, physical discipline, and intellectual curiosity. I believe in taking extreme ownership of one's destiny and protecting those who cannot protect themselves.",
+    "statusCards": [
+      {
+        "title": "💼 CAREER",
+        "content": "Scaling operations and mastering new technologies.",
+        "color": "var(--success-green)"
+      },
+      {
+        "title": "🎓 EDUCATION",
+        "content": "Self-studying systems architecture and philosophy.",
+        "color": "var(--primary-blue)"
+      },
+      {
+        "title": "🏗️ PROJECTS",
+        "content": "Developing the Bravehart LifeOS framework.",
+        "color": "var(--accent-gold)"
+      },
+      {
+        "title": "🎯 FOCUS",
+        "content": "High-intensity training and metabolic health.",
+        "color": "var(--accent-red)"
+      }
+    ],
+    "values": [
+      { "key": "📚 BOOKS", "val": "Meditations, Deep Work" },
+      { "key": "🎬 MOVIES", "val": "Gladiator, Inception" },
+      { "key": "🎵 MUSIC", "val": "Orchestral, Synthwave" },
+      { "key": "🏃 ACTIVITIES", "val": "Lifting, Rucking, Coding" }
+    ],
+    "ambitions": [
+      "🦁 Establish a generational family legacy",
+      "🌍 Travel to all 7 continents",
+      "💻 Architect industry-leading software",
+      "⚔️ Achieve master-level physical fitness"
+    ]
+  },
+  "skills": [
+    {
+      "name": "Systems Architecture",
+      "level": "Expert",
+      "progress": 92,
+      "category": "technical",
+      "description": "Designing scalable cloud infrastructures and secure OS environments."
+    },
+    {
+      "name": "Strategic Planning",
+      "level": "Advanced",
+      "progress": 85,
+      "category": "leadership",
+      "description": "Long-term mission mapping and resource allocation."
+    },
+    {
+      "name": "Metabolic Conditioning",
+      "level": "Advanced",
+      "progress": 88,
+      "category": "physical",
+      "description": "High-intensity tactical fitness and endurance capacity."
+    },
+    {
+      "name": "Stoic Philosophy",
+      "level": "Intermediate",
+      "progress": 70,
+      "category": "mental",
+      "description": "Emotional regulation and logic-based decision making."
+    },
+    {
+      "name": "Cybersecurity",
+      "level": "Advanced",
+      "progress": 78,
+      "category": "technical",
+      "description": "Network hardening and penetration testing protocols."
+    },
+    {
+      "name": "Financial Analysis",
+      "level": "Intermediate",
+      "progress": 65,
+      "category": "professional",
+      "description": "Market evaluation and capital management."
+    }
+  ],
+  "goals": [
+    {
+      "title": "Financial Sovereignty",
+      "status": "In Progress",
+      "progress": 65,
+      "deadline": "2025-12-31"
+    },
+    {
+      "title": "LifeOS Deployment",
+      "status": "Completed",
+      "progress": 100,
+      "deadline": "2024-12-01"
+    }
+  ],
+  "people": [
+    {
+      "name": "Marcus Aurelius",
+      "tag": "mentor",
+      "context": "Philosophical Influence",
+      "lesson": "Mastery of the self is the only true victory."
+    },
+    {
+      "name": "Elon T.",
+      "tag": "professional",
+      "context": "Tech Industry",
+      "lesson": "First principles thinking in all systems."
+    }
+  ],
+  "memories": [
+    {
+      "title": "Summit Achievement",
+      "date": "August 2024",
+      "image": "img1.jpg"
+    },
+    {
+      "title": "OS Initialized",
+      "date": "December 2024",
+      "image": "img2.jpg"
+    }
+  ],
+  "videos": [
+    {
+      "title": "Quarterly Performance Review",
+      "date": "Sept 2024",
+      "description": "Analyzing growth metrics and mental fortitude benchmarks.",
+      "url": "video1.mp4",
+      "thumbnail": "https://via.placeholder.com/800x450/0a1128/00ffff?text=Review+Thumbnail"
+    }
+  ],
+  "timeline": [
+    {
+      "year": "2025",
+      "title": "System Deployment",
+      "date": "January - December",
+      "description": "Launch and integration of BravehartLifeOS. Focused on documenting the journey and establishing high-level systems for life management.",
+      "highlights": ["💻 Tech", "🚀 Growth"]
+    },
+    {
+      "year": "2024",
+      "title": "The Great Pivot",
+      "date": "May 15, 2024",
+      "description": "Redefined career objectives and shifted focus toward autonomous systems and physical peak performance.",
+      "highlights": ["🎯 Mission", "💼 Career"]
+    },
+    {
+      "year": "2020",
+      "title": "Academic Mastery",
+      "date": "June 2020",
+      "description": "Completed higher education with honors. Developed the foundational logic for long-term strategic planning.",
+      "highlights": ["🎓 Education"]
+    },
+    {
+      "type": "birth",
+      "year": "INITIALIZED",
+      "title": "Genesis",
+      "date": "1995",
+      "description": "The beginning of the journey. Arrival of a warrior.",
+      "highlights": ["🦁 Origin"]
+    }
+  ]
+}

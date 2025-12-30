@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TIMELINE | BRAVEHART LIFEOS</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <script>
+        if (!sessionStorage.getItem('isLoggedIn')) {
+            window.location.href = 'login.html';
+        }
+    </script>
+
+    <header>
+        <div class="header-container">
+            <div class="brand">
+                <h1>🦁 BRAVEHART LIFEOS</h1>
+                <p class="tagline">OPERATING SYSTEM FOR A LEGENDARY LIFE</p>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">🏠 DASHBOARD</a></li>
+                    <li><a href="profile.html">👤 PROFILE</a></li>
+                    <li><a href="memories.html">📸 MEMORIES</a></li>
+                    <li><a href="videos.html">🎬 VIDEOS</a></li>
+                    <li><a href="people.html">👥 PEOPLE</a></li>
+                    <li><a href="skills.html">⚡ SKILLS</a></li>
+                    <li><a href="goals.html">🎯 GOALS</a></li>
+                    <li><a href="timeline.html" class="active">📅 TIMELINE</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="page-header">
+            <h2>📅 LIFE TIMELINE 📅</h2>
+        </section>
+
+        <div class="timeline-container">
+            <div id="dynamic-timeline" class="timeline">
+                <div style="text-align: center; padding: 3rem; opacity: 0.5;">
+                    <p>RECONSTRUCTING CHRONOLOGY...</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>🦁 BRAVEHART LIFEOS - BUILDING A LEGENDARY LIFE, ONE DAY AT A TIME 🦁</p>
+        </div>
+    </footer>
+
+    <script>
+        async function syncTimeline() {
+            try {
+                const response = await fetch('data.json');
+                const data = await response.json();
+                const timelineBox = document.getElementById('dynamic-timeline');
+                
+                timelineBox.innerHTML = ''; // Clear loading state
+
+                if (!data.timeline || data.timeline.length === 0) {
+                    timelineBox.innerHTML = '<p style="text-align: center; opacity: 0.6;">No chronological data found.</p>';
+                    return;
+                }
+
+                data.timeline.forEach(event => {
+                    const entry = document.createElement('div');
+                    
+                    // Add special class for the birth/genesis entry
+                    const isBirth = event.type === "birth";
+                    entry.className = isBirth ? "timeline-entry birth-entry" : "timeline-entry";
+
+                    // Generate highlight tags HTML
+                    const highlightsHTML = event.highlights ? 
+                        `<div class="timeline-highlights">
+                            ${event.highlights.map(tag => `<span class="highlight-tag">${tag.toUpperCase()}</span>`).join('')}
+                        </div>` : '';
+
+                    entry.innerHTML = `
+                        <div class="timeline-marker ${isBirth ? 'birth-marker' : ''}"></div>
+                        <div class="timeline-content">
+                            <span class="timeline-year">${event.year}</span>
+                            <h3>${event.title}</h3>
+                            <p class="timeline-date">${event.date}</p>
+                            <p>${event.description}</p>
+                            ${highlightsHTML}
+                        </div>
+                    `;
+                    timelineBox.appendChild(entry);
+                });
+
+            } catch (error) {
+                console.error("Timeline Sync Error:", error);
+                document.getElementById('dynamic-timeline').innerHTML = '<p style="text-align: center; color: var(--accent-red);">CRITICAL ERROR: CHRONOLOGY OFFLINE.</p>';
+            }
+        }
+
+        window.onload = syncTimeline;
+    </script>
+</body>
+</html>

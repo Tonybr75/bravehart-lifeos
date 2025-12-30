@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PEOPLE | BRAVEHART LIFEOS</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <script>
+        if (!sessionStorage.getItem('isLoggedIn')) {
+            window.location.href = 'login.html';
+        }
+    </script>
+
+    <header>
+        <div class="header-container">
+            <div class="brand">
+                <h1>🦁 BRAVEHART LIFEOS</h1>
+                <p class="tagline">OPERATING SYSTEM FOR A LEGENDARY LIFE</p>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">🏠 DASHBOARD</a></li>
+                    <li><a href="profile.html">👤 PROFILE</a></li>
+                    <li><a href="memories.html">📸 MEMORIES</a></li>
+                    <li><a href="videos.html">🎬 VIDEOS</a></li>
+                    <li><a href="people.html" class="active">👥 PEOPLE</a></li>
+                    <li><a href="skills.html">⚡ SKILLS</a></li>
+                    <li><a href="goals.html">🎯 GOALS</a></li>
+                    <li><a href="timeline.html">📅 TIMELINE</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="page-header">
+            <h2>👥 PEOPLE DATABASE 👥</h2>
+        </section>
+
+        <div id="people-sections-wrapper">
+            <div style="text-align: center; padding: 3rem; opacity: 0.5;">
+                <p>SYNCING SOCIAL NETWORK...</p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>🦁 BRAVEHART LIFEOS - BUILDING A LEGENDARY LIFE, ONE DAY AT A TIME 🦁</p>
+        </div>
+    </footer>
+
+    <script>
+        async function syncPeople() {
+            try {
+                const response = await fetch('data.json');
+                const data = await response.json();
+                const wrapper = document.getElementById('people-sections-wrapper');
+                
+                wrapper.innerHTML = ''; // Clear loading
+
+                // Define the categories we want to display
+                const categoryConfig = [
+                    { id: 'family', label: '👨‍👩‍👧‍👦 FAMILY' },
+                    { id: 'friend', label: '🤝 BROTHERS / CLOSE FRIENDS' },
+                    { id: 'mentor', label: '🎓 MENTORS & INFLUENCES' },
+                    { id: 'professional', label: '💼 PROFESSIONAL NETWORK' }
+                ];
+
+                categoryConfig.forEach(config => {
+                    // Filter people who match this category
+                    const group = data.people.filter(p => p.tag === config.id);
+
+                    if (group.length > 0) {
+                        // Create Section Header
+                        const section = document.createElement('section');
+                        section.className = 'people-section';
+                        section.innerHTML = `<h3 class="section-title">${config.label}</h3>`;
+
+                        // Create Grid
+                        const grid = document.createElement('div');
+                        grid.className = 'people-grid';
+
+                        // Create Cards
+                        group.forEach(person => {
+                            grid.innerHTML += `
+                                <div class="person-card">
+                                    <div class="person-header">
+                                        <h4>${person.name}</h4>
+                                        <span class="relationship-tag ${person.tag}">${person.tag.toUpperCase()}</span>
+                                    </div>
+                                    <div class="person-details">
+                                        <p><strong>Context:</strong> ${person.context || 'N/A'}</p>
+                                        <p><strong>Impact:</strong> ${person.lesson || 'Documenting legacy...'}</p>
+                                    </div>
+                                </div>
+                            `;
+                        });
+
+                        section.appendChild(grid);
+                        wrapper.appendChild(section);
+                    }
+                });
+
+            } catch (error) {
+                console.error("People Sync Error:", error);
+                wrapper.innerHTML = `<p style="color: var(--accent-red); text-align: center;">SOCIAL DATABASE OFFLINE.</p>`;
+            }
+        }
+
+        window.onload = syncPeople;
+    </script>
+</body>
+</html>

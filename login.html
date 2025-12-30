@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACCESS SYSTEM | BRAVEHART LIFEOS</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="login-page">
+    <div class="cyber-grid"></div>
+    
+    <div class="login-box" id="loginBox">
+        <div class="login-header">
+            <div style="font-size: 4rem;">🦁</div>
+            <h1>BRAVEHART LIFEOS</h1>
+        </div>
+        
+        <div class="login-form">
+            <div class="input-group">
+                <input type="password" id="password" placeholder="ENTER ACCESS CODE">
+                <span id="togglePassword" style="position:absolute; right:10px; top:10px; cursor:pointer;">👁️</span>
+            </div>
+            <button class="login-btn" onclick="checkPassword()">ACCESS SYSTEM</button>
+            <p id="errorMessage" style="color: var(--accent-red); margin-top: 1rem; display: none;">ACCESS DENIED: INVALID CODE</p>
+        </div>
+    </div>
+
+    <script>
+        const passInput = document.getElementById('password');
+        const toggleBtn = document.getElementById('togglePassword');
+        const errorMsg = document.getElementById('errorMessage');
+        const loginBox = document.getElementById('loginBox');
+
+        toggleBtn.addEventListener('click', () => {
+            const type = passInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passInput.setAttribute('type', type);
+        });
+
+        function checkPassword() {
+            const pass = passInput.value;
+            if (pass === 'bravehart2024') {
+                sessionStorage.setItem('isLoggedIn', 'true');
+                window.location.href = 'index.html';
+            } else {
+                errorMsg.style.display = 'block';
+                loginBox.style.animation = 'shake 0.5s';
+                passInput.value = '';
+                setTimeout(() => { loginBox.style.animation = ''; }, 500);
+            }
+        }
+
+        // Allow Enter key to submit
+        passInput.addEventListener("keypress", (event) => {
+            if (event.key === "Enter") {
+                checkPassword();
+            }
+        });
+    </script>
+</body>
+</html>
