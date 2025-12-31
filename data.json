@@ -128,7 +128,11 @@
       "title": "OS Initialized",
       "date": "December 2024",
       "image": "img2.jpg"
-    }
+    },
+    { "title": "Old Memory", "date": "Jan 2024", "image": "img1.jpg" },
+  { "title": "New Memory", "date": "Feb 2024", "image": "img2.jpg" } 
+  // Adding this automatically makes MEMORY_LOGS show "2"
+
   ],
   "videos": [
     {
@@ -169,11 +173,5 @@
       "description": "The beginning of the journey. Arrival of a warrior.",
       "highlights": ["🦁 Origin"]
     }
-  ],
-
-  "memories": [
-  { "title": "Old Memory", "date": "Jan 2024", "image": "img1.jpg" },
-  { "title": "New Memory", "date": "Feb 2024", "image": "img2.jpg" } 
-  // Adding this automatically makes MEMORY_LOGS show "2"
-]
+  ]
 }
