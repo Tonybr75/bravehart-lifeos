@@ -1,4 +1,4 @@
-/* BRAVEHART LIFEOS - ADVANCED CYBER-SYSTEM STYLESHEET */
+/* BRAVEHART LIFEOS - ADVANCED MASTER STYLESHEET */
 :root {
     --primary-dark: #060b19;
     --primary-blue: #00d4ff;
@@ -11,17 +11,17 @@
     --text-light: #e0e6ed;
     --text-dark: #0a0a0a;
     --success-green: #00ff41;
-    --glass-bg: rgba(10, 17, 40, 0.7);
-    --neon-shadow: 0 0 15px rgba(0, 212, 255, 0.4);
-    --gold-glow: 0 0 25px rgba(243, 156, 18, 0.7);
+    --glass-bg: rgba(10, 17, 40, 0.85);
+    --neon-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+    --gold-glow: 0 0 30px rgba(243, 156, 18, 0.8);
 }
 
-/* --- BASE & GLOBAL SCROLLBAR --- */
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', 'Orbitron', sans-serif; }
+/* --- RESET & GLOBAL --- */
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
 
 ::-webkit-scrollbar { width: 8px; }
 ::-webkit-scrollbar-track { background: var(--primary-dark); }
-::-webkit-scrollbar-thumb { background: var(--primary-blue); border-radius: 10px; border: 2px solid var(--primary-dark); }
+::-webkit-scrollbar-thumb { background: var(--primary-blue); border-radius: 10px; }
 
 body {
     background: #050810;
@@ -36,158 +36,202 @@ body {
     overflow-x: hidden;
 }
 
-/* --- SYSTEM-WIDE ANIMATIONS --- */
+/* --- ANIMATIONS --- */
 @keyframes neonPulse { 0%, 100% { box-shadow: 0 0 10px rgba(0,212,255,0.3); } 50% { box-shadow: 0 0 25px rgba(0,212,255,0.6); } }
-@keyframes goldPulse { 0%, 100% { box-shadow: 0 0 10px rgba(243,156,18,0.3); } 50% { box-shadow: 0 0 30px rgba(243,156,18,0.8); } }
+@keyframes goldPulse { 0%, 100% { box-shadow: 0 0 10px rgba(243,156,18,0.3); } 50% { box-shadow: 0 0 40px rgba(243,156,18,0.9); } }
+@keyframes gridMove { from { background-position: 0 0; } to { background-position: 50px 50px; } }
 @keyframes scanline { 0% { bottom: 100%; } 100% { bottom: 0%; } }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-/* --- NAVIGATION (GLASSMORPHISM) --- */
+/* --- LOGIN PAGE (CENTERED & REFINED) --- */
+.login-page {
+    height: 100vh;
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center;     /* Center vertically */
+    position: relative;
+    overflow: hidden;
+    background: var(--primary-dark);
+}
+
+.cyber-grid {
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    background-image: linear-gradient(rgba(0, 212, 255, 0.1) 1px, transparent 1px), 
+                      linear-gradient(90deg, rgba(0, 212, 255, 0.1) 1px, transparent 1px);
+    background-size: 50px 50px;
+    animation: gridMove 10s linear infinite;
+    z-index: 1;
+}
+
+.login-box {
+    position: relative;
+    z-index: 2;
+    background: var(--glass-bg);
+    backdrop-filter: blur(15px);
+    padding: 3.5rem;
+    border-radius: 15px;
+    border: 2px solid var(--primary-blue);
+    box-shadow: var(--neon-shadow);
+    text-align: center;
+    max-width: 420px;
+    width: 90%;
+    animation: fadeIn 1s ease-out;
+}
+
+.login-box h1 { 
+    font-size: 2.2rem; 
+    color: var(--primary-blue); 
+    margin: 1rem 0; 
+    letter-spacing: 5px; 
+    text-shadow: 0 0 15px var(--primary-blue);
+}
+
+.input-group { margin: 1.5rem 0; }
+.input-group input {
+    width: 100%;
+    padding: 14px;
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid var(--secondary-steel);
+    color: white;
+    border-radius: 5px;
+    outline: none;
+    transition: 0.3s;
+}
+.input-group input:focus { border-color: var(--primary-blue); box-shadow: 0 0 10px rgba(0, 212, 255, 0.4); }
+
+.login-btn {
+    width: 100%;
+    padding: 14px;
+    background: var(--primary-blue);
+    border: none;
+    color: var(--primary-dark);
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.4s;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+.login-btn:hover { background: var(--accent-cyan); box-shadow: 0 0 25px var(--accent-cyan); transform: translateY(-2px); }
+
+/* --- NAVIGATION --- */
 header {
-    background: rgba(6, 11, 25, 0.9);
+    background: rgba(6, 11, 25, 0.95);
     backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
     border-bottom: 2px solid var(--primary-blue);
-    padding: 0.8rem 0;
+    padding: 1rem 0;
     position: sticky;
     top: 0;
     z-index: 1000;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
 }
 
 .header-container {
-    max-width: 1400px;
+    max-width: 1200px;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 30px;
+    padding: 0 20px;
 }
 
-.brand h1 { font-size: 1.6rem; color: var(--primary-blue); text-transform: uppercase; letter-spacing: 3px; filter: drop-shadow(0 0 5px var(--primary-blue)); }
-.brand .tagline { font-size: 0.7rem; letter-spacing: 4px; color: var(--accent-gold); font-weight: bold; }
+.brand h1 { font-size: 1.4rem; color: var(--primary-blue); letter-spacing: 2px; }
+.brand .tagline { font-size: 0.7rem; letter-spacing: 3px; color: var(--accent-gold); }
 
-.main-nav ul { display: flex; list-style: none; gap: 20px; }
+.main-nav ul { display: flex; list-style: none; gap: 15px; }
 .main-nav a { 
     color: var(--text-light); 
     text-decoration: none; 
-    font-size: 0.85rem; 
+    font-size: 0.8rem; 
     font-weight: bold;
-    text-transform: uppercase;
-    transition: 0.4s;
-    padding: 5px 10px;
-    border: 1px solid transparent;
+    transition: 0.3s;
 }
-.main-nav a:hover, .main-nav a.active { 
-    color: var(--primary-blue); 
-    border: 1px solid var(--primary-blue);
-    box-shadow: var(--neon-shadow);
-    background: rgba(0, 212, 255, 0.05);
-}
+.main-nav a:hover, .main-nav a.active { color: var(--primary-blue); text-shadow: 0 0 10px var(--primary-blue); }
 
 /* --- DASHBOARD ELEMENTS --- */
-.container { max-width: 1400px; margin: 2.5rem auto; padding: 0 30px; animation: fadeIn 1s ease-out; }
+.container { max-width: 1200px; margin: 2rem auto; padding: 0 20px; animation: fadeIn 0.8s ease-out; }
 
 .stat-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 25px;
-    margin-bottom: 3rem;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+    margin-bottom: 2rem;
 }
 
 .stat-card {
     background: var(--glass-bg);
-    border: 1px solid rgba(0, 212, 255, 0.2);
-    padding: 2rem;
-    position: relative;
-    overflow: hidden;
-    transition: 0.4s;
+    padding: 1.5rem;
+    border-left: 4px solid var(--primary-blue);
+    text-align: center;
+    transition: 0.3s;
 }
+.stat-card:hover { transform: translateY(-5px); box-shadow: var(--neon-shadow); }
 
-.stat-card::after {
-    content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--primary-blue);
-}
-
-.stat-card:hover {
-    transform: translateY(-8px);
-    border-color: var(--primary-blue);
-    box-shadow: var(--neon-shadow);
-}
-
-/* --- THE CAPABILITY MATRIX --- */
-.capability-matrix {
-    background: var(--glass-bg);
-    border: 1px solid var(--primary-blue);
-    padding: 30px 50px; /* Enhanced padding to fix text clipping */
-    border-radius: 4px;
-    position: relative;
-}
-
-canvas#skillsChart {
-    filter: drop-shadow(0 0 10px rgba(0, 212, 255, 0.4));
-    max-width: 100% !important;
-}
-
-/* --- MEMORIES SLIDE-UP (ADVANCED) --- */
+/* --- MEMORIES SLIDE-UP --- */
 .memory-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 30px;
 }
 
 .memory-item {
     position: relative;
-    border: 1px solid rgba(0, 212, 255, 0.3);
-    background: #000;
+    border: 1px solid var(--primary-blue);
+    background: var(--secondary-charcoal);
     overflow: hidden;
-    height: 380px;
-    transition: 0.5s;
+    height: 350px;
+    border-radius: 8px;
+    transition: 0.4s;
 }
 
 .memory-item img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: 0.8;
-    transition: 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: 0.5s ease;
 }
 
 .memory-caption {
     position: absolute;
     bottom: 0; left: 0; right: 0;
-    background: linear-gradient(transparent, rgba(6, 11, 25, 0.95) 20%);
-    padding: 30px 20px;
+    background: rgba(10, 17, 40, 0.95);
+    padding: 20px;
     border-top: 2px solid var(--primary-blue);
-    transform: translateY(105%);
-    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    z-index: 5;
+    transform: translateY(100%);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .memory-item:hover .memory-caption { transform: translateY(0); }
-.memory-item:hover img { transform: scale(1.15) rotate(1deg); filter: brightness(0.6); opacity: 1; }
-.memory-item:hover { border-color: var(--primary-blue); box-shadow: var(--neon-shadow); }
+.memory-item:hover img { transform: scale(1.1); filter: brightness(0.7); }
 
-/* --- TIMELINE: GOLD GLOW RESTORATION & ADVANCEMENT --- */
-.timeline-container { padding: 3rem 0; position: relative; max-width: 900px; margin: 0 auto; }
+/* --- IMAGE EXPAND LOGIC --- */
+.img-wrapper:focus {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    z-index: 9999; background: rgba(0, 0, 0, 0.95);
+    display: flex; align-items: center; justify-content: center;
+}
+.img-wrapper:focus img { max-width: 90%; max-height: 80%; border: 2px solid var(--primary-blue); box-shadow: 0 0 50px var(--primary-blue); }
+
+/* --- TIMELINE: GOLD GLOW RESTORED --- */
+.timeline-container { padding: 2rem 0; position: relative; max-width: 800px; margin: 0 auto; }
 .timeline::before {
-    content: ''; position: absolute; left: 20px; top: 0; bottom: 0; width: 1px;
-    background: linear-gradient(to bottom, transparent, var(--primary-blue), var(--secondary-steel), transparent);
+    content: ''; position: absolute; left: 20px; top: 0; bottom: 0; width: 2px;
+    background: linear-gradient(to bottom, var(--primary-blue), var(--secondary-steel));
 }
 
-.timeline-entry { position: relative; margin-bottom: 4rem; padding-left: 60px; animation: fadeIn 1s ease-out; }
-
+.timeline-entry { position: relative; margin-bottom: 3rem; padding-left: 50px; }
 .timeline-marker {
     position: absolute;
-    left: 10px; top: 10px;
+    left: 10px; top: 5px;
     width: 22px; height: 22px;
     background: var(--primary-dark);
     border: 3px solid var(--primary-blue);
     border-radius: 50%;
-    z-index: 10;
-    animation: neonPulse 2s infinite;
+    z-index: 2;
 }
 
-/* THE POWERFUL GOLD GLOW FIX */
+/* THE ULTIMATE GOLD PULSE */
 .birth-marker { 
     border-color: var(--accent-gold) !important; 
     background: var(--accent-gold) !important; 
@@ -196,88 +240,25 @@ canvas#skillsChart {
 }
 
 .timeline-content {
-    background: rgba(28, 45, 62, 0.3);
-    backdrop-filter: blur(5px);
-    padding: 2rem;
-    border-radius: 4px;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    transition: 0.4s;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: 0.3s;
 }
-.timeline-content:hover { 
-    transform: translateX(15px); 
-    border-color: var(--primary-blue); 
-    background: rgba(0, 212, 255, 0.05); 
-}
+.timeline-content:hover { transform: translateX(10px); border-color: var(--primary-blue); }
 
-/* --- SKILLS & POWER LEVELS --- */
-.skill-category { 
-    background: var(--glass-bg); 
-    padding: 2.5rem; 
-    border: 1px solid rgba(255,255,255,0.05); 
-    margin-bottom: 3rem; 
-}
-.skill-bar { 
-    width: 100%; height: 6px; 
-    background: #000; 
-    border-radius: 10px; 
-    overflow: hidden; 
-    margin: 15px 0 25px 0; 
-    border: 1px solid rgba(255,255,255,0.1);
-}
-.skill-progress { 
-    height: 100%; 
-    background: linear-gradient(90deg, var(--primary-blue), var(--accent-cyan)); 
-    box-shadow: 0 0 10px var(--primary-blue); 
-    transition: width 2s cubic-bezier(0.1, 0, 0.1, 1); 
-}
-
-/* --- IMAGE EXPAND (ORIGINAL LOGIC) --- */
-.img-wrapper:focus {
-    position: fixed;
-    top: 0; left: 0; width: 100vw; height: 100vh;
-    z-index: 9999; background: rgba(0, 0, 0, 0.95);
-    display: flex; align-items: center; justify-content: center;
-}
-.img-wrapper:focus img {
-    max-width: 90%; max-height: 85%;
-    border: 2px solid var(--primary-blue);
-    box-shadow: 0 0 50px var(--primary-blue);
-}
-
-/* --- FOOTER & RESPONSIVE --- */
-footer { 
-    text-align: center; 
-    padding: 4rem 2rem; 
-    border-top: 1px solid var(--secondary-steel); 
-    margin-top: 5rem; 
-    background: rgba(0,0,0,0.3);
-}
-
-/* MOBILE CONTROLS */
-@media (max-width: 1024px) {
-    .container { padding: 0 20px; }
-    .stat-grid { grid-template-columns: 1fr 1fr; }
-}
-
+/* --- RESPONSIVE --- */
 @media (max-width: 768px) {
-    .header-container { flex-direction: column; gap: 15px; }
-    .main-nav ul { gap: 10px; flex-wrap: wrap; justify-content: center; }
-    .main-nav a { font-size: 0.7rem; padding: 4px 8px; }
-    
-    .stat-grid { grid-template-columns: 1fr; }
-    .memory-grid, .video-gallery, .people-grid { grid-template-columns: 1fr; }
-    
-    .brand h1 { font-size: 1.2rem; }
-    .capability-matrix { padding: 20px 15px; } /* Matrix safety on mobile */
-    
-    .timeline::before { left: 15px; }
-    .timeline-marker { left: 5px; }
-    .timeline-entry { padding-left: 40px; }
+    .header-container { flex-direction: column; text-align: center; }
+    .main-nav ul { justify-content: center; margin-top: 1rem; gap: 8px; }
+    .stat-grid { grid-template-columns: repeat(2, 1fr); }
+    .memory-grid { grid-template-columns: 1fr; }
 }
 
-/* CYBER SCANLINE EFFECT (OPTIONAL OVERLAY) */
+/* CYBER SCANLINE */
 body::before {
-    content: " ";
+    content: "";
     position: fixed;
     top: 0; left: 0; width: 100%; height: 2px;
     background: rgba(0, 212, 255, 0.1);
@@ -285,3 +266,9 @@ body::before {
     pointer-events: none;
     animation: scanline 8s linear infinite;
 }
+
+/* Capability Matrix Text Safety */
+canvas#skillsChart { padding: 20px 45px !important; max-width: 100% !important; }
+
+/* FOOTER */
+footer { text-align: center; padding: 3rem; border-top: 1px solid var(--secondary-steel); margin-top: 4rem; font-size: 0.8rem; color: var(--secondary-steel); }
