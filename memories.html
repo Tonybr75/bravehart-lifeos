@@ -5,6 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MEMORIES | BRAVEHART LIFEOS</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* Specific styling for the Google Photos access button */
+        .external-link-container {
+            margin-top: 20px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .external-link-btn {
+            display: inline-block;
+            padding: 12px 28px;
+            background: rgba(0, 243, 255, 0.1);
+            color: #00f3ff;
+            border: 2px solid #00f3ff;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 50px; /* Rounded look for a modern UI */
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.85rem;
+            box-shadow: 0 0 10px rgba(0, 243, 255, 0.2);
+        }
+
+        .external-link-btn:hover {
+            background: #00f3ff;
+            color: #0a1128;
+            box-shadow: 0 0 25px rgba(0, 243, 255, 0.8);
+            transform: scale(1.05);
+        }
+    </style>
 </head>
 <body>
     <script>
@@ -36,77 +67,66 @@
 
     <main class="container">
         <section class="page-header">
-            <h2>📸 MEMORY ARCHIVE 📸</h2>
+            <h2 style="text-align: center;">📸 MEMORY ARCHIVE 📸</h2>
+            <div class="external-link-container">
+                <a href="https://photos.google.com/" target="_blank" class="external-link-btn">
+                    🔗 OPEN GOOGLE PHOTOS CLOUD
+                </a>
+            </div>
         </section>
 
         <div id="memories-container" class="memory-grid">
-            <div style="text-align: center; grid-column: 1/-1; padding: 3rem; opacity: 0.5;">
-                <p>ACCESSING VISUAL RECORDS...</p>
             </div>
-        </div>
     </main>
 
     <footer>
         <div class="footer-content">
-            <p>🦁 BRAVEHART LIFEOS - BUILDING A LEGENDARY LIFE, ONE DAY AT A TIME 🦁</p>
+            <p>🦁 BRAVEHART LIFEOS - BUILDING A LEGENDARY LIFE 🦁</p>
         </div>
     </footer>
 
     <script>
         async function loadMemories() {
             try {
-                // 1. Fetch data from the JSON brain
                 const response = await fetch('data.json');
                 const data = await response.json();
                 const container = document.getElementById('memories-container');
                 
-                container.innerHTML = ''; // Clear loading message
+                container.innerHTML = ''; 
 
-                if (!data.memories || data.memories.length === 0) {
-                    container.innerHTML = '<p style="grid-column: 1/-1; text-align: center;">NO RECORDS FOUND.</p>';
-                    return;
-                }
-
-                // 2. Loop through memories with an index for staggered animation
                 data.memories.forEach((memory, index) => {
                     const memoryCard = document.createElement('div');
                     memoryCard.className = 'memory-item';
                     
-                    // Set initial state for the fade-in animation
+                    // Entrance animation logic
                     memoryCard.style.opacity = '0';
-                    memoryCard.style.transform = 'translateY(20px)';
-                    memoryCard.style.transition = 'all 0.6s cubic-bezier(0.23, 1, 0.32, 1)';
+                    memoryCard.style.transform = 'translateY(30px)';
+                    memoryCard.style.transition = 'all 0.6s ease-out';
 
-                    // 3. Build HTML Structure
-                    // 'loading="lazy"' fixes the load delay
-                    // 'memory-caption' is the part that slides up via CSS
                     memoryCard.innerHTML = `
                         <img src="${memory.image}" loading="lazy" alt="${memory.title}">
                         <div class="memory-caption">
                             <span class="date">${memory.date.toUpperCase()}</span>
                             <h3>${memory.title}</h3>
-                            <p>Visual Log Decrypted. Discipline maintained.</p>
+                            <p>ARCHIVE DATA RETRIEVED.</p>
                         </div>
                     `;
 
                     container.appendChild(memoryCard);
 
-                    // 4. Trigger staggered entrance
-                    // Each card appears 100ms after the previous one
+                    // Staggered loading to prevent delay
                     setTimeout(() => {
                         memoryCard.style.opacity = '1';
                         memoryCard.style.transform = 'translateY(0)';
-                    }, index * 100);
+                    }, index * 100); 
                 });
 
             } catch (error) {
-                console.error("Memory Retrieval Error:", error);
-                document.getElementById('memories-container').innerHTML = 
-                    '<p style="grid-column: 1/-1; text-align: center; color: var(--accent-red);">CRITICAL ERROR: ARCHIVE OFFLINE.</p>';
+                console.error("Error:", error);
+                document.getElementById('memories-container').innerHTML = "<p>OFFLINE MODE ACTIVE.</p>";
             }
         }
 
-        // Initialize when the DOM is ready
         document.addEventListener('DOMContentLoaded', loadMemories);
     </script>
 </body>
