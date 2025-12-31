@@ -64,15 +64,16 @@
             const res = await fetch('data.json');
             const data = await res.json();
 
-            // FULL SYSTEM STATS COUNTER
+            // FULL SYSTEM MODULE COUNTER
             const statContainer = document.getElementById('stat-container');
             const stats = [
-                { label: "OS_STATUS", val: data.stats.status },
+                { label: "DASHBOARD", val: "READY" }, // Current Page Status
+                { label: "PROFILE_NODES", val: data.profile.statusCards.length }, // Count of your identity cards
                 { label: "MEMORY_LOGS", val: data.memories.length },
+                { label: "VIDEO_FILES", val: data.videos.length },
+                { label: "PEOPLE_SYNC", val: data.people.length },
                 { label: "SKILL_NODES", val: data.skills.length },
                 { label: "ACTIVE_GOALS", val: data.goals.length },
-                { label: "PEOPLE_SYNC", val: data.people.length },
-                { label: "VIDEO_FILES", val: data.videos.length },
                 { label: "TIMELINE_EVT", val: data.timeline.length }
             ];
 
@@ -81,11 +82,11 @@
                 statContainer.innerHTML += `
                     <div class="hex-card">
                         <p style="font-size: 0.6rem; color: var(--neon-yellow); letter-spacing:1px;">${s.label}</p>
-                        <h2 style="margin-top:10px; font-size: 1.4rem;">${s.val}</h2>
+                        <h2 style="margin-top:10px; font-size: 1.3rem;">${s.val}</h2>
                     </div>`;
             });
 
-            // Load Radar Chart (First 6 skills)
+            // Load Radar Chart
             const ctx = document.getElementById('skillsChart').getContext('2d');
             new Chart(ctx, {
                 type: 'radar',
