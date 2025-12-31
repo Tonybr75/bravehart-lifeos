@@ -3,25 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ACCESS SYSTEM | BRAVEHART LIFEOS</title>
+    <title>ACCESS TERMINAL | BRAVEHART LIFEOS</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Specific login layout to center the box */
+        body.login-page {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: var(--cyber-void);
+        }
+
+        .login-box {
+            background: rgba(10, 14, 39, 0.9);
+            border: 2px solid var(--neon-cyan);
+            padding: 40px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: var(--neon-glow);
+            position: relative;
+        }
+
+        .input-group {
+            position: relative;
+            margin: 25px 0;
+        }
+
+        .login-form input {
+            width: 100%;
+            background: rgba(0, 255, 249, 0.05);
+            border: 1px solid var(--neon-cyan);
+            padding: 12px;
+            color: var(--neon-cyan);
+            font-family: var(--font-terminal);
+            outline: none;
+        }
+
+        .login-btn {
+            width: 100%;
+            background: transparent;
+            border: 1px solid var(--neon-magenta);
+            color: var(--neon-magenta);
+            padding: 12px;
+            cursor: pointer;
+            font-family: var(--font-cyber);
+            text-transform: uppercase;
+            transition: 0.3s;
+        }
+
+        .login-btn:hover {
+            background: var(--neon-magenta);
+            color: white;
+            box-shadow: var(--magenta-glow);
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+
+        #errorMessage {
+            color: var(--warning-red);
+            font-size: 0.75rem;
+            margin-top: 15px;
+            display: none;
+            text-transform: uppercase;
+        }
+    </style>
 </head>
 <body class="login-page">
     <div class="cyber-grid"></div>
     
     <div class="login-box" id="loginBox">
         <div class="login-header">
-            <div style="font-size: 4rem;">🦁</div>
-            <h1>BRAVEHART LIFEOS</h1>
+            <h1 class="glitch-text" style="font-size: 3rem; margin-bottom: 0;">🦁</h1>
+            <h2 class="glitch-text" style="color: var(--neon-cyan); letter-spacing: 2px;">BRAVEHART_OS</h2>
+            <p style="font-size: 0.7rem; color: var(--neon-yellow); margin-top: 10px;">[SECURE_TERMINAL_v1.0.2]</p>
         </div>
         
         <div class="login-form">
             <div class="input-group">
                 <input type="password" id="password" placeholder="ENTER ACCESS CODE">
-                <span id="togglePassword" style="position:absolute; right:10px; top:10px; cursor:pointer;">👁️</span>
+                <span id="togglePassword" class="toggle-password">👁️</span>
             </div>
-            <button class="login-btn" onclick="checkPassword()">ACCESS SYSTEM</button>
-            <p id="errorMessage" style="color: var(--accent-red); margin-top: 1rem; display: none;">ACCESS DENIED: INVALID CODE</p>
+            
+            <button class="login-btn" onclick="checkPassword()">
+                > EXECUTE_LOGIN
+            </button>
+            
+            <p id="errorMessage">ACCESS_DENIED: INVALID_CREDENTIALS</p>
         </div>
     </div>
 
@@ -31,29 +107,42 @@
         const errorMsg = document.getElementById('errorMessage');
         const loginBox = document.getElementById('loginBox');
 
+        // Toggle Visibility
         toggleBtn.addEventListener('click', () => {
             const type = passInput.getAttribute('type') === 'password' ? 'text' : 'password';
             passInput.setAttribute('type', type);
+            toggleBtn.textContent = type === 'password' ? '👁️' : '🕶️';
         });
 
+        // Authentication Logic
         function checkPassword() {
             const pass = passInput.value;
+            // Matches your existing credential requirement
             if (pass === 'bravehart2024') {
                 sessionStorage.setItem('isLoggedIn', 'true');
-                window.location.href = 'index.html';
+                
+                // Success visual sequence
+                loginBox.style.borderColor = 'var(--neon-green)';
+                loginBox.innerHTML = `
+                    <h2 class="glitch-text" style="color: var(--neon-green);">ACCESS_GRANTED</h2>
+                    <p style="font-size: 0.8rem;">INITIALIZING_NEURAL_LINK...</p>
+                `;
+                
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 1200);
             } else {
                 errorMsg.style.display = 'block';
-                loginBox.style.animation = 'shake 0.5s';
+                // Trigger visual "glitch" error
+                loginBox.style.animation = 'glitch 0.2s 3'; 
                 passInput.value = '';
-                setTimeout(() => { loginBox.style.animation = ''; }, 500);
+                setTimeout(() => { loginBox.style.animation = ''; }, 600);
             }
         }
 
-        // Allow Enter key to submit
-        passInput.addEventListener("keypress", (event) => {
-            if (event.key === "Enter") {
-                checkPassword();
-            }
+        // Enter key support
+        passInput.addEventListener("keypress", (e) => {
+            if (e.key === "Enter") checkPassword();
         });
     </script>
 </body>

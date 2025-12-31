@@ -2,106 +2,53 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GOALS | BRAVEHART LIFEOS</title>
+    <title>MISSION GOALS | BRAVEHART OS</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <script>
-        if (!sessionStorage.getItem('isLoggedIn')) {
-            window.location.href = 'login.html';
-        }
-    </script>
-
-    <header>
-        <div class="header-container">
-            <div class="brand">
-                <h1>🦁 BRAVEHART LIFEOS</h1>
-                <p class="tagline">OPERATING SYSTEM FOR A LEGENDARY LIFE</p>
-            </div>
-            <nav class="main-nav">
-                <ul>
-                    <li><a href="index.html">🏠 DASHBOARD</a></li>
-                    <li><a href="profile.html">👤 PROFILE</a></li>
-                    <li><a href="memories.html">📸 MEMORIES</a></li>
-                    <li><a href="videos.html">🎬 VIDEOS</a></li>
-                    <li><a href="people.html">👥 PEOPLE</a></li>
-                    <li><a href="skills.html">⚡ SKILLS</a></li>
-                    <li><a href="goals.html" class="active">🎯 GOALS</a></li>
-                    <li><a href="timeline.html">📅 TIMELINE</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+    <div class="cyber-grid"></div>
+    <nav class="main-nav">
+        <ul>
+            <li><a href="index.html">🏠 DASHBOARD</a></li>
+            <li><a href="profile.html">👤 PROFILE</a></li>
+            <li><a href="memories.html">📸 MEMORIES</a></li>
+            <li><a href="videos.html">🎬 VIDEOS</a></li>
+            <li><a href="people.html">👥 PEOPLE</a></li>
+            <li><a href="skills.html">⚡ SKILLS</a></li>
+            <li><a href="goals.html" class="active">🎯 GOALS</a></li>
+            <li><a href="timeline.html">📅 TIMELINE</a></li>
+        </ul>
+    </nav>
 
     <main class="container">
-        <section class="page-header">
-            <h2>🎯 MISSION OBJECTIVES 🎯</h2>
-        </section>
-
-        <section class="vision-section" style="margin-bottom: 4rem; text-align: center;">
-            <h3 style="color: var(--accent-gold); letter-spacing: 3px;">🌟 LIFE VISION</h3>
-            <p id="life-vision" style="font-size: 1.5rem; max-width: 800px; margin: 1.5rem auto; line-height: 1.8; font-weight: 300;">
-                INITIALIZING MISSION BRAIN...
-            </p>
-        </section>
-
-        <div style="display: grid; grid-template-columns: 1fr; gap: 30px; margin-bottom: 4rem;">
-            <div>
-                <h3 class="section-title">📅 ACTIVE OBJECTIVES</h3>
-                <div id="goals-container">
-                    </div>
+        <h1 class="glitch-text" style="margin-bottom: 30px;">// MISSION_OBJECTIVES</h1>
+        <div id="goals-list">
             </div>
-        </div>
     </main>
 
-    <footer>
-        <div class="footer-content">
-            <p>🦁 BRAVEHART LIFEOS - BUILDING A LEGENDARY LIFE, ONE DAY AT A TIME 🦁</p>
-        </div>
-    </footer>
-
     <script>
-        async function syncGoals() {
-            try {
-                const response = await fetch('data.json');
-                const data = await response.json();
-                
-                // Update Vision Statement from Profile Data
-                document.getElementById('life-vision').innerText = `"${data.profile.mission}"`;
+        async function loadGoals() {
+            const res = await fetch('data.json');
+            const data = await res.json();
+            const container = document.getElementById('goals-list');
 
-                const container = document.getElementById('goals-container');
-                container.innerHTML = ''; // Clear loading
-
-                data.goals.forEach(goal => {
-                    const statusClass = goal.status.toLowerCase().replace(" ", "-") + "-tag";
-                    const barColor = goal.progress === 100 ? 'var(--success-green)' : 'var(--primary-blue)';
-
-                    const goalCard = document.createElement('div');
-                    goalCard.className = 'goal-card';
-                    goalCard.innerHTML = `
-                        <div class="goal-header">
-                            <h4>${goal.title}</h4>
-                            <span class="goal-status ${statusClass}">${goal.status.toUpperCase()}</span>
+            data.goals.forEach(goal => {
+                const color = goal.progress === 100 ? 'var(--neon-green)' : 'var(--neon-cyan)';
+                container.innerHTML += `
+                    <div class="status-card" style="border-left-color: ${color}">
+                        <div style="display:flex; justify-content:space-between;">
+                            <h3 style="text-transform:uppercase;">${goal.title}</h3>
+                            <span style="color:${color}">${goal.status}</span>
                         </div>
-                        <p>Target Date: <span style="color: var(--accent-gold);">${goal.deadline}</span></p>
-                        <div class="skill-bar" style="margin: 15px 0 5px 0;">
-                            <div class="skill-progress" style="width: ${goal.progress}%; background: ${barColor};"></div>
+                        <p style="font-size:0.8rem; color:var(--neon-yellow); margin: 5px 0;">DEADLINE: ${goal.deadline}</p>
+                        <div class="skill-bar-container">
+                            <div class="skill-progress-fill" style="width: ${goal.progress}%; background: ${color}"></div>
                         </div>
-                        <div style="display: flex; justify-content: space-between; font-size: 0.8rem;">
-                            <span>${goal.progress}% Complete</span>
-                        </div>
-                    `;
-                    container.appendChild(goalCard);
-                });
-
-            } catch (error) {
-                console.error("Goals Sync Error:", error);
-                document.getElementById('life-vision').innerText = "ERROR LOADING MISSION DATA.";
-            }
+                        <p style="font-size:0.85rem; text-align:right;">COMPLETION: ${goal.progress}%</p>
+                    </div>`;
+            });
         }
-
-        window.onload = syncGoals;
+        window.onload = loadGoals;
     </script>
 </body>
 </html>

@@ -1,131 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MEMORIES | BRAVEHART LIFEOS</title>
-    <link rel="stylesheet" href="style.css">
-    <style>
-        /* Modern, glow-effect button for the cloud link */
-        .external-link-container {
-            margin: 25px 0 35px 0;
-            text-align: center;
-        }
-
-        .external-link-btn {
-            display: inline-block;
-            padding: 14px 30px;
-            background: rgba(0, 243, 255, 0.05);
-            color: #00f3ff;
-            border: 2px solid #00f3ff;
-            text-decoration: none;
-            font-weight: bold;
-            border-radius: 4px;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-size: 0.85rem;
-            box-shadow: 0 0 15px rgba(0, 243, 255, 0.1);
-        }
-
-        .external-link-btn:hover {
-            background: #00f3ff;
-            color: #0a1128;
-            box-shadow: 0 0 30px rgba(0, 243, 255, 0.7);
-            transform: translateY(-3px);
-        }
-    </style>
+    <meta charset="UTF-8"><title>MEMORIES | BRAVEHART OS</title><link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <script>
-        if (!sessionStorage.getItem('isLoggedIn')) {
-            window.location.href = 'login.html';
-        }
-    </script>
-
-    <header>
-        <div class="header-container">
-            <div class="brand">
-                <h1>🦁 BRAVEHART LIFEOS</h1>
-                <p class="tagline">OPERATING SYSTEM FOR A LEGENDARY LIFE</p>
-            </div>
-            <nav class="main-nav">
-                <ul>
-                    <li><a href="index.html">🏠 DASHBOARD</a></li>
-                    <li><a href="profile.html">👤 PROFILE</a></li>
-                    <li><a href="memories.html" class="active">📸 MEMORIES</a></li>
-                    <li><a href="videos.html">🎬 VIDEOS</a></li>
-                    <li><a href="people.html">👥 PEOPLE</a></li>
-                    <li><a href="skills.html">⚡ SKILLS</a></li>
-                    <li><a href="goals.html">🎯 GOALS</a></li>
-                    <li><a href="timeline.html">📅 TIMELINE</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+    <div class="cyber-grid"></div>
+    <nav class="main-nav">
+        <ul>
+            <li><a href="index.html">🏠 DASHBOARD</a></li>
+            <li><a href="profile.html">👤 PROFILE</a></li>
+            <li><a href="memories.html" class="active">📸 MEMORIES</a></li>
+            <li><a href="videos.html">🎬 VIDEOS</a></li>
+            <li><a href="people.html">👥 PEOPLE</a></li>
+            <li><a href="skills.html">⚡ SKILLS</a></li>
+            <li><a href="goals.html">🎯 GOALS</a></li>
+            <li><a href="timeline.html">📅 TIMELINE</a></li>
+        </ul>
+    </nav>
 
     <main class="container">
-        <section class="page-header">
-            <h2 style="text-align: center;">📸 MEMORY ARCHIVE 📸</h2>
-            <div class="external-link-container">
-                <a href="https://photos.app.goo.gl/aDw3tq54D4J1Gzi48" target="_blank" class="external-link-btn">
-                    🔗 SYNCED CLOUD ARCHIVE
-                </a>
-            </div>
-        </section>
-
-        <div id="memories-container" class="memory-grid">
-            </div>
+        <h1 class="glitch-text" style="margin-bottom:30px;">// VISUAL_DATA_VAULT</h1>
+        <div class="archive-grid" id="memories-container"></div>
     </main>
 
-    <footer>
-        <div class="footer-content">
-            <p>🦁 BRAVEHART LIFEOS - BUILDING A LEGENDARY LIFE 🦁</p>
-        </div>
-    </footer>
-
     <script>
-        async function loadMemories() {
-            try {
-                const response = await fetch('data.json');
-                const data = await response.json();
-                const container = document.getElementById('memories-container');
-                
-                container.innerHTML = ''; 
-
-                data.memories.forEach((memory, index) => {
-                    const memoryCard = document.createElement('div');
-                    memoryCard.className = 'memory-item';
-                    
-                    // Entrance animation
-                    memoryCard.style.opacity = '0';
-                    memoryCard.style.transform = 'translateY(25px)';
-                    memoryCard.style.transition = 'all 0.7s ease-out';
-
-                    memoryCard.innerHTML = `
-                        <img src="${memory.image}" loading="lazy" alt="${memory.title}">
-                        <div class="memory-caption">
-                            <span class="date">${memory.date.toUpperCase()}</span>
-                            <h3>${memory.title}</h3>
-                            <p>VISUAL LOG SECURE.</p>
+        async function load() {
+            const res = await fetch('data.json');
+            const data = await res.json();
+            const container = document.getElementById('memories-container');
+            data.memories.forEach(m => {
+                container.innerHTML += `
+                    <div class="archive-item">
+                        <img src="${m.image}">
+                        <div class="archive-caption">
+                            <p style="color:var(--neon-yellow); font-size:0.7rem;">${m.date}</p>
+                            <h3>${m.title}</h3>
                         </div>
-                    `;
-
-                    container.appendChild(memoryCard);
-
-                    setTimeout(() => {
-                        memoryCard.style.opacity = '1';
-                        memoryCard.style.transform = 'translateY(0)';
-                    }, index * 120); 
-                });
-
-            } catch (error) {
-                console.error("Load Error:", error);
-                document.getElementById('memories-container').innerHTML = "<p>DATABASE CONNECTION ERROR.</p>";
-            }
+                    </div>`;
+            });
         }
-
-        document.addEventListener('DOMContentLoaded', loadMemories);
+        window.onload = load;
     </script>
 </body>
 </html>

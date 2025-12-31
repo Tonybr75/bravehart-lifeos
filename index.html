@@ -2,267 +2,96 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DASHBOARD | BRAVEHART LIFEOS</title>
+    <title>COMMAND CENTER | BRAVEHART OS</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
-        /* Specific Styles for Dashboard buttons */
-        .action-btn-styled {
-            display: block;
-            text-align: center;
-            background: var(--secondary-charcoal);
-            color: var(--text-light);
-            padding: 15px;
-            text-decoration: none;
-            border: 1px solid var(--primary-blue);
-            transition: 0.3s;
-            font-weight: bold;
-            text-transform: uppercase;
-            font-size: 0.8rem;
-        }
-        .action-btn-styled:hover {
-            background: var(--primary-blue);
-            color: var(--primary-dark);
-            box-shadow: var(--glow);
-        }
-
-        #skillsChart {
-            max-width: 100% !important;
-            height: auto !important;
-            filter: drop-shadow(0 0 5px rgba(0, 212, 255, 0.3));
-        }
-    </style>
 </head>
 <body>
-    <script>
-        if (!sessionStorage.getItem('isLoggedIn')) {
-            window.location.href = 'login.html';
-        }
-    </script>
-
-    <header>
-        <div class="header-container">
-            <div class="brand">
-                <h1>🦁 BRAVEHART LIFEOS</h1>
-                <p class="tagline">OPERATING SYSTEM FOR A LEGENDARY LIFE</p>
-            </div>
-            <nav class="main-nav">
-                <ul>
-                    <li><a href="index.html" class="active">🏠 DASHBOARD</a></li>
-                    <li><a href="profile.html">👤 PROFILE</a></li>
-                    <li><a href="memories.html">📸 MEMORIES</a></li>
-                    <li><a href="videos.html">🎬 VIDEOS</a></li>
-                    <li><a href="people.html">👥 PEOPLE</a></li>
-                    <li><a href="skills.html">⚡ SKILLS</a></li>
-                    <li><a href="goals.html">🎯 GOALS</a></li>
-                    <li><a href="timeline.html">📅 TIMELINE</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+    <div class="cyber-grid"></div>
+    <nav class="main-nav">
+        <ul>
+            <li><a href="index.html" class="active">🏠 DASHBOARD</a></li>
+            <li><a href="profile.html">👤 PROFILE</a></li>
+            <li><a href="memories.html">📸 MEMORIES</a></li>
+            <li><a href="videos.html">🎬 VIDEOS</a></li>
+            <li><a href="people.html">👥 PEOPLE</a></li>
+            <li><a href="skills.html">⚡ SKILLS</a></li>
+            <li><a href="goals.html">🎯 GOALS</a></li>
+            <li><a href="timeline.html">📅 TIMELINE</a></li>
+        </ul>
+    </nav>
 
     <main class="container">
-        <section class="welcome-banner" style="text-align: center; margin-bottom: 3rem;">
-            <h2 style="color: var(--primary-blue); font-size: 2.5rem; letter-spacing: 3px;">⚡ WELCOME BACK, WARRIOR ⚡</h2>
-            <p id="currentDate" style="color: var(--accent-gold); font-weight: bold; margin: 10px 0;"></p>
-            <blockquote id="mission-text" style="font-style: italic; color: var(--text-light); opacity: 0.8; margin-top: 1rem;">
-                "Build Your Legacy. Document Your Journey. Dominate Your Life."
-            </blockquote>
-        </section>
+        <header style="margin-bottom: 40px;">
+            <h1 class="glitch-text" style="font-size: 2.5rem;">BRAVEHART_OS_v1.0</h1>
+            <p id="current-date" style="color: var(--neon-yellow);"></p>
+        </header>
 
-        <div class="stat-grid">
-            <a href="memories.html" style="text-decoration: none; color: inherit;">
-                <div class="stat-card" data-type="MEMORIES">
-                    <div style="font-size: 2rem;">📸</div>
-                    <h3>MEMORIES</h3>
-                    <p class="stat-value" style="font-size: 1.5rem; color: var(--primary-blue);">0</p>
-                </div>
-            </a>
-            <a href="people.html" style="text-decoration: none; color: inherit;">
-                <div class="stat-card" data-type="PEOPLE">
-                    <div style="font-size: 2rem;">👥</div>
-                    <h3>PEOPLE</h3>
-                    <p class="stat-value" style="font-size: 1.5rem; color: var(--primary-blue);">0</p>
-                </div>
-            </a>
-            <a href="skills.html" style="text-decoration: none; color: inherit;">
-                <div class="stat-card" data-type="SKILLS">
-                    <div style="font-size: 2rem;">⚡</div>
-                    <h3>SKILLS</h3>
-                    <p class="stat-value" style="font-size: 1.5rem; color: var(--primary-blue);">0</p>
-                </div>
-            </a>
-            <a href="goals.html" style="text-decoration: none; color: inherit;">
-                <div class="stat-card" data-type="GOALS">
-                    <div style="font-size: 2rem;">🎯</div>
-                    <h3>GOALS</h3>
-                    <p class="stat-value" style="font-size: 1.5rem; color: var(--primary-blue);">0</p>
-                </div>
-            </a>
-            <a href="timeline.html" style="text-decoration: none; color: inherit;">
-                <div class="stat-card" data-type="DAYS LOGGED">
-                    <div style="font-size: 2rem;">📅</div>
-                    <h3>DAYS LOGGED</h3>
-                    <p class="stat-value" style="font-size: 1.5rem; color: var(--primary-blue);">0</p>
-                </div>
-            </a>
-            <a href="videos.html" style="text-decoration: none; color: inherit;">
-                <div class="stat-card" data-type="VIDEOS">
-                    <div style="font-size: 2rem;">🎬</div>
-                    <h3>VIDEOS</h3>
-                    <p class="stat-value" style="font-size: 1.5rem; color: var(--primary-blue);">0</p>
-                </div>
-            </a>
+        <div class="stat-grid" id="stat-container"></div>
+
+        <div style="background: rgba(0, 255, 249, 0.02); border: 1px solid var(--neon-cyan); padding: 30px; margin-top: 30px;">
+            <h3 class="glitch-text" style="margin-bottom: 20px;">// NEURAL_CAPABILITY_RADAR</h3>
+            <canvas id="skillsChart" style="max-height: 400px;"></canvas>
         </div>
-
-        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 30px; margin-top: 2rem;">
-            
-            <section class="quick-actions">
-                <h3 style="margin-bottom: 1.5rem; border-bottom: 1px solid var(--primary-blue); padding-bottom: 5px;">⚡ QUICK ACTIONS</h3>
-                <div style="display: grid; grid-template-columns: 1fr; gap: 10px;">
-                    <a href="memories.html" class="action-btn-styled">Add Memory</a>
-                    <a href="videos.html" class="action-btn-styled">Record Video</a>
-                    <a href="goals.html" class="action-btn-styled">Update Goals</a>
-                    <a href="people.html" class="action-btn-styled">Add Person</a>
-                    <a href="skills.html" class="action-btn-styled">Log Skill</a>
-                    <a href="timeline.html" class="action-btn-styled">Add Event</a>
-                </div>
-            </section>
-
-            <section class="radar-container" style="background: rgba(10, 17, 40, 0.6); padding: 1.5rem; border: 1px solid var(--primary-blue); text-align: center;">
-                <h3 style="color: var(--primary-blue); margin-bottom: 1rem;">⚡ CAPABILITY MATRIX</h3>
-                <canvas id="skillsChart" width="300" height="300"></canvas>
-            </section>
-
-            <section class="system-info" style="background: rgba(10, 17, 40, 0.6); padding: 1.5rem; border: 1px solid var(--secondary-steel);">
-                <h3 style="color: var(--primary-blue); margin-bottom: 1rem;">SYSTEM INFO</h3>
-                <p><strong>OS:</strong> <span id="os-version">BravehartLifeOS</span></p>
-                <p><strong>Status:</strong> <span id="system-status" style="color: var(--success-green);">● ACTIVE</span></p>
-                <p><strong>Last Updated:</strong> Today</p>
-                <p><strong>Total Entries:</strong> <span id="total-entries">0</span></p>
-                <div style="margin-top: 1rem; border-top: 1px solid #333; padding-top: 10px;">
-                    <button onclick="logout()" style="background: var(--accent-red); color: white; border: none; padding: 10px; cursor: pointer; width: 100%; font-weight: bold;">LOGOUT SESSION</button>
-                </div>
-            </section>
-        </div>
-
-        <section style="margin-top: 3rem;">
-            <h3 style="margin-bottom: 1rem; border-bottom: 1px solid var(--primary-blue); padding-bottom: 5px;">🕒 RECENT ACTIVITY</h3>
-            <div id="activity-feed" style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 5px;">
-                <p style="opacity: 0.6; font-style: italic;">No recent activity found. System initialized.</p>
-            </div>
-        </section>
     </main>
 
-    <footer>
-        <div class="footer-content">
-            <p>🦁 BRAVEHART LIFEOS - BUILDING A LEGENDARY LIFE, ONE DAY AT A TIME 🦁</p>
-        </div>
-    </footer>
-
     <script>
-        // 1. DATE AND LOGOUT FUNCTIONS
-        const setDate = () => {
-            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            document.getElementById('currentDate').innerText = new Date().toLocaleDateString(undefined, options);
-        };
+        async function initDashboard() {
+            // Set Date
+            const now = new Date();
+            document.getElementById('current-date').innerText = `SYSTEM_TIME: ${now.toDateString().toUpperCase()} // ${now.toLocaleTimeString()}`;
 
-        const logout = () => {
-            sessionStorage.removeItem('isLoggedIn');
-            window.location.href = 'login.html';
-        };
-
-        // 2. MAIN DATA ENGINE
-        async function loadLifeData() {
             try {
-                // Fetch the Brain (data.json)
-                const response = await fetch('data.json');
-                const data = await response.json();
+                const res = await fetch('data.json');
+                const data = await res.json();
 
-                // Update Profile/Mission
-                if(data.profile) {
-                    document.getElementById('mission-text').innerText = data.profile.mission;
-                }
+                // Load Hex Stats
+                const statContainer = document.getElementById('stat-container');
+                const stats = [
+                    { label: "OS_STATUS", val: data.stats.status },
+                    { label: "VERSION", val: data.stats.version },
+                    { label: "MEMORY_LOGS", val: data.memories.length },
+                    { label: "SKILL_NODES", val: data.skills.length }
+                ];
 
-                // Update Stat Cards
-                const stats = {
-                    "MEMORIES": data.memories ? data.memories.length : 0,
-                    "PEOPLE": data.people ? data.people.length : 0,
-                    "SKILLS": data.skills ? data.skills.length : 0,
-                    "GOALS": data.goals ? data.goals.length : 0,
-                    "VIDEOS": data.videos ? data.videos.length : 0
-                };
+                stats.forEach(s => {
+                    statContainer.innerHTML += `
+                        <div class="hex-card">
+                            <p style="font-size: 0.7rem; color: var(--neon-yellow);">${s.label}</p>
+                            <h2 style="margin-top:10px;">${s.val}</h2>
+                        </div>`;
+                });
 
-                document.querySelectorAll('.stat-card').forEach(card => {
-                    const type = card.getAttribute('data-type');
-                    if(stats[type] !== undefined) {
-                        card.querySelector('.stat-value').innerText = stats[type];
+                // Load Radar Chart
+                const ctx = document.getElementById('skillsChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'radar',
+                    data: {
+                        labels: data.skills.slice(0, 6).map(s => s.name),
+                        datasets: [{
+                            label: 'SYNC_LEVEL',
+                            data: data.skills.slice(0, 6).map(s => s.progress),
+                            borderColor: '#00fff9',
+                            backgroundColor: 'rgba(0, 255, 249, 0.2)',
+                            pointBackgroundColor: '#ff006e'
+                        }]
+                    },
+                    options: {
+                        scales: { 
+                            r: { 
+                                ticks: { display: false }, 
+                                grid: { color: 'rgba(0, 255, 249, 0.1)' },
+                                angleLines: { color: 'rgba(0, 255, 249, 0.1)' },
+                                pointLabels: { color: '#00fff9', font: { size: 10 } }
+                            } 
+                        },
+                        plugins: { legend: { display: false } }
                     }
                 });
 
-                // Calculate Days Logged
-                if(data.stats && data.stats.birthDate) {
-                    const birth = new Date(data.stats.birthDate);
-                    const today = new Date();
-                    const diff = Math.ceil((today - birth) / (1000 * 60 * 60 * 24));
-                    document.querySelector('[data-type="DAYS LOGGED"] .stat-value').innerText = diff.toLocaleString();
-                }
-
-                // Update System Info
-                document.getElementById('total-entries').innerText = 
-                    (data.memories?.length || 0) + (data.people?.length || 0) + (data.skills?.length || 0);
-                document.getElementById('os-version').innerText = "BravehartLifeOS " + (data.stats.version || "v1.0");
-
-                // 3. INITIALIZE RADAR CHART
-                initRadarChart(data.skills);
-
-            } catch (error) {
-                console.error("LifeOS Engine Error:", error);
-                document.getElementById('system-status').innerText = "● ERROR";
-                document.getElementById('system-status').style.color = "var(--accent-red)";
-            }
+            } catch (err) { console.error("DASHBOARD_SYNC_ERROR", err); }
         }
-
-        function initRadarChart(skills) {
-            const canvas = document.getElementById('skillsChart');
-            if (!canvas || !skills) return;
-
-            const ctx = canvas.getContext('2d');
-            new Chart(ctx, {
-                type: 'radar',
-                data: {
-                    labels: skills.map(s => s.name),
-                    datasets: [{
-                        label: 'Power Level',
-                        data: skills.map(s => s.progress),
-                        backgroundColor: 'rgba(0, 212, 255, 0.2)',
-                        borderColor: '#00d4ff',
-                        pointBackgroundColor: '#00ffff',
-                        borderWidth: 2
-                    }]
-                },
-                options: {
-                    plugins: { legend: { display: false } },
-                    scales: {
-                        r: {
-                            angleLines: { color: 'rgba(255, 255, 255, 0.1)' },
-                            grid: { color: 'rgba(255, 255, 255, 0.1)' },
-                            pointLabels: { color: '#ecf0f1', font: { size: 11 } },
-                            ticks: { display: false },
-                            suggestMin: 0,
-                            suggestMax: 100
-                        }
-                    }
-                }
-            });
-        }
-
-        // STARTUP
-        window.onload = () => {
-            setDate();
-            loadLifeData();
-        };
+        window.onload = initDashboard;
     </script>
 </body>
 </html>
