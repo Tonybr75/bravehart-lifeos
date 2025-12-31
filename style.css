@@ -25,12 +25,6 @@
 
 body {
     background: #050810;
-    background-image: 
-        radial-gradient(circle at 50% 50%, rgba(0, 212, 255, 0.05) 0%, transparent 80%),
-        linear-gradient(rgba(0, 212, 255, 0.02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 212, 255, 0.02) 1px, transparent 1px);
-    background-size: 100% 100%, 30px 30px, 30px 30px;
-    background-attachment: fixed;
     color: var(--text-light);
     line-height: 1.6;
     overflow-x: hidden;
@@ -46,9 +40,10 @@ body {
 /* --- LOGIN PAGE (CENTERED & REFINED) --- */
 .login-page {
     height: 100vh;
+    width: 100vw;
     display: flex;
-    justify-content: center; /* Center horizontally */
-    align-items: center;     /* Center vertically */
+    justify-content: center; /* Horizontally center */
+    align-items: center;     /* Vertically center */
     position: relative;
     overflow: hidden;
     background: var(--primary-dark);
@@ -61,7 +56,7 @@ body {
     background-image: linear-gradient(rgba(0, 212, 255, 0.1) 1px, transparent 1px), 
                       linear-gradient(90deg, rgba(0, 212, 255, 0.1) 1px, transparent 1px);
     background-size: 50px 50px;
-    animation: gridMove 10s linear infinite;
+    animation: gridMove 10s linear infinite; /* Moving Background Restored */
     z-index: 1;
 }
 
@@ -88,10 +83,17 @@ body {
     text-shadow: 0 0 15px var(--primary-blue);
 }
 
-.input-group { margin: 1.5rem 0; }
+.input-group { 
+    margin: 1.5rem 0; 
+    position: relative; /* Essential for positioning the eye icon */
+    display: flex;
+    align-items: center;
+}
+
 .input-group input {
     width: 100%;
     padding: 14px;
+    padding-right: 45px; /* Space for the eye icon */
     background: rgba(0, 0, 0, 0.6);
     border: 1px solid var(--secondary-steel);
     color: white;
@@ -99,7 +101,23 @@ body {
     outline: none;
     transition: 0.3s;
 }
-.input-group input:focus { border-color: var(--primary-blue); box-shadow: 0 0 10px rgba(0, 212, 255, 0.4); }
+
+.input-group input:focus { 
+    border-color: var(--primary-blue); 
+    box-shadow: 0 0 10px rgba(0, 212, 255, 0.4); 
+}
+
+/* Styling for the Toggle Eye */
+.input-group i, .input-group .toggle-password {
+    position: absolute;
+    right: 15px;
+    cursor: pointer;
+    color: var(--primary-blue);
+    opacity: 0.7;
+    transition: 0.3s;
+}
+
+.input-group i:hover { opacity: 1; }
 
 .login-btn {
     width: 100%;
@@ -113,9 +131,13 @@ body {
     text-transform: uppercase;
     letter-spacing: 2px;
 }
-.login-btn:hover { background: var(--accent-cyan); box-shadow: 0 0 25px var(--accent-cyan); transform: translateY(-2px); }
+.login-btn:hover { 
+    background: var(--accent-cyan); 
+    box-shadow: 0 0 25px var(--accent-cyan); 
+    transform: translateY(-2px); 
+}
 
-/* --- NAVIGATION --- */
+/* --- DASHBOARD & GENERAL INTERFACE --- */
 header {
     background: rgba(6, 11, 25, 0.95);
     backdrop-filter: blur(12px);
@@ -138,17 +160,17 @@ header {
 .brand h1 { font-size: 1.4rem; color: var(--primary-blue); letter-spacing: 2px; }
 .brand .tagline { font-size: 0.7rem; letter-spacing: 3px; color: var(--accent-gold); }
 
-.main-nav ul { display: flex; list-style: none; gap: 15px; }
+.main-nav ul { display: flex; list-style: none; gap: 15px; flex-wrap: wrap; }
 .main-nav a { 
     color: var(--text-light); 
     text-decoration: none; 
     font-size: 0.8rem; 
     font-weight: bold;
     transition: 0.3s;
+    padding: 5px 10px;
 }
 .main-nav a:hover, .main-nav a.active { color: var(--primary-blue); text-shadow: 0 0 10px var(--primary-blue); }
 
-/* --- DASHBOARD ELEMENTS --- */
 .container { max-width: 1200px; margin: 2rem auto; padding: 0 20px; animation: fadeIn 0.8s ease-out; }
 
 .stat-grid {
@@ -164,6 +186,7 @@ header {
     border-left: 4px solid var(--primary-blue);
     text-align: center;
     transition: 0.3s;
+    border-radius: 4px;
 }
 .stat-card:hover { transform: translateY(-5px); box-shadow: var(--neon-shadow); }
 
@@ -213,7 +236,7 @@ header {
 }
 .img-wrapper:focus img { max-width: 90%; max-height: 80%; border: 2px solid var(--primary-blue); box-shadow: 0 0 50px var(--primary-blue); }
 
-/* --- TIMELINE: GOLD GLOW RESTORED --- */
+/* --- TIMELINE: GOLD GLOW --- */
 .timeline-container { padding: 2rem 0; position: relative; max-width: 800px; margin: 0 auto; }
 .timeline::before {
     content: ''; position: absolute; left: 20px; top: 0; bottom: 0; width: 2px;
@@ -231,7 +254,6 @@ header {
     z-index: 2;
 }
 
-/* THE ULTIMATE GOLD PULSE */
 .birth-marker { 
     border-color: var(--accent-gold) !important; 
     background: var(--accent-gold) !important; 
@@ -248,7 +270,7 @@ header {
 }
 .timeline-content:hover { transform: translateX(10px); border-color: var(--primary-blue); }
 
-/* --- RESPONSIVE --- */
+/* --- RESPONSIVE & FOOTER --- */
 @media (max-width: 768px) {
     .header-container { flex-direction: column; text-align: center; }
     .main-nav ul { justify-content: center; margin-top: 1rem; gap: 8px; }
@@ -256,7 +278,9 @@ header {
     .memory-grid { grid-template-columns: 1fr; }
 }
 
-/* CYBER SCANLINE */
+footer { text-align: center; padding: 3rem; border-top: 1px solid var(--secondary-steel); margin-top: 4rem; font-size: 0.8rem; color: var(--secondary-steel); }
+
+/* CYBER SCANLINE OVERLAY */
 body::before {
     content: "";
     position: fixed;
@@ -266,9 +290,3 @@ body::before {
     pointer-events: none;
     animation: scanline 8s linear infinite;
 }
-
-/* Capability Matrix Text Safety */
-canvas#skillsChart { padding: 20px 45px !important; max-width: 100% !important; }
-
-/* FOOTER */
-footer { text-align: center; padding: 3rem; border-top: 1px solid var(--secondary-steel); margin-top: 4rem; font-size: 0.8rem; color: var(--secondary-steel); }
