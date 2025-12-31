@@ -18,6 +18,7 @@
             <li><a href="skills.html">⚡ SKILLS</a></li>
             <li><a href="goals.html">🎯 GOALS</a></li>
             <li><a href="timeline.html">📅 TIMELINE</a></li>
+            <li><a href="javascript:void(0)" onclick="logout()" style="color: var(--warning-red);" class="logout-link">🛑 LOGOUT</a></li>
         </ul>
     </nav>
 
@@ -35,63 +36,93 @@
         </div>
     </main>
 
+    
+
     <script>
-        async function initDashboard() {
-            // Set Date
+    // 1. SECURITY GATE: Kick out unauthorized users immediately
+    if (!sessionStorage.getItem('isLoggedIn')) {
+        window.location.href = 'login.html';
+    }
+
+    // 2. LOGOUT FUNCTION: Clears session and redirects
+    function logout() {
+        // Visual feedback for shutdown
+        document.body.style.filter = "grayscale(1) brightness(0.5)";
+        document.body.style.pointerEvents = "none";
+        
+        console.log("LOGGING_OUT...");
+        sessionStorage.removeItem('isLoggedIn');
+        
+        setTimeout(() => {
+            window.location.href = 'login.html';
+        }, 800);
+    }
+
+    // 3. DASHBOARD INITIALIZATION
+    async function initDashboard() {
+        // Set Date & Time
+        const updateClock = () => {
             const now = new Date();
             document.getElementById('current-date').innerText = `SYSTEM_TIME: ${now.toDateString().toUpperCase()} // ${now.toLocaleTimeString()}`;
+        };
+        setInterval(updateClock, 1000);
+        updateClock();
 
-            try {
-                const res = await fetch('data.json');
-                const data = await res.json();
+        try {
+            const res = await fetch('data.json');
+            const data = await res.json();
 
-                // Load Hex Stats
-                const statContainer = document.getElementById('stat-container');
-                const stats = [
-                    { label: "OS_STATUS", val: data.stats.status },
-                    { label: "VERSION", val: data.stats.version },
-                    { label: "MEMORY_LOGS", val: data.memories.length },
-                    { label: "SKILL_NODES", val: data.skills.length }
-                ];
+            // Load Hex Stats
+            const statContainer = document.getElementById('stat-container');
+            const stats = [
+                { label: "OS_STATUS", val: data.stats.status },
+                { label: "VERSION", val: data.stats.version },
+                { label: "MEMORY_LOGS", val: data.memories.length },
+                { label: "SKILL_NODES", val: data.skills.length }
+            ];
 
-                stats.forEach(s => {
-                    statContainer.innerHTML += `
-                        <div class="hex-card">
-                            <p style="font-size: 0.7rem; color: var(--neon-yellow);">${s.label}</p>
-                            <h2 style="margin-top:10px;">${s.val}</h2>
-                        </div>`;
-                });
+            statContainer.innerHTML = ''; // Clear container
+            stats.forEach(s => {
+                statContainer.innerHTML += `
+                    <div class="hex-card">
+                        <p style="font-size: 0.7rem; color: var(--neon-yellow);">${s.label}</p>
+                        <h2 style="margin-top:10px;">${s.val}</h2>
+                    </div>`;
+            });
 
-                // Load Radar Chart
-                const ctx = document.getElementById('skillsChart').getContext('2d');
-                new Chart(ctx, {
-                    type: 'radar',
-                    data: {
-                        labels: data.skills.slice(0, 6).map(s => s.name),
-                        datasets: [{
-                            label: 'SYNC_LEVEL',
-                            data: data.skills.slice(0, 6).map(s => s.progress),
-                            borderColor: '#00fff9',
-                            backgroundColor: 'rgba(0, 255, 249, 0.2)',
-                            pointBackgroundColor: '#ff006e'
-                        }]
+            // Load Radar Chart
+            const ctx = document.getElementById('skillsChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: data.skills.slice(0, 6).map(s => s.name),
+                    datasets: [{
+                        label: 'SYNC_LEVEL',
+                        data: data.skills.slice(0, 6).map(s => s.progress),
+                        borderColor: '#00fff9',
+                        backgroundColor: 'rgba(0, 255, 249, 0.2)',
+                        pointBackgroundColor: '#ff006e'
+                    }]
+                },
+                options: {
+                    scales: { 
+                        r: { 
+                            ticks: { display: false }, 
+                            grid: { color: 'rgba(0, 255, 249, 0.1)' },
+                            angleLines: { color: 'rgba(0, 255, 249, 0.1)' },
+                            pointLabels: { color: '#00fff9', font: { size: 10 } }
+                        } 
                     },
-                    options: {
-                        scales: { 
-                            r: { 
-                                ticks: { display: false }, 
-                                grid: { color: 'rgba(0, 255, 249, 0.1)' },
-                                angleLines: { color: 'rgba(0, 255, 249, 0.1)' },
-                                pointLabels: { color: '#00fff9', font: { size: 10 } }
-                            } 
-                        },
-                        plugins: { legend: { display: false } }
-                    }
-                });
+                    plugins: { legend: { display: false } }
+                }
+            });
 
-            } catch (err) { console.error("DASHBOARD_SYNC_ERROR", err); }
+        } catch (err) { 
+            console.error("DASHBOARD_SYNC_ERROR", err); 
         }
-        window.onload = initDashboard;
-    </script>
+    }
+
+    window.onload = initDashboard;
+</script>
 </body>
 </html>
