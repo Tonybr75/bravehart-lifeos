@@ -15,22 +15,23 @@
         }
 
         .video-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(0, 243, 255, 0.2);
+            background: rgba(10, 14, 39, 0.8);
+            border: 1px solid rgba(0, 255, 249, 0.2);
             border-radius: 8px;
             overflow: hidden;
-            transition: transform 0.3s ease;
+            transition: all 0.3s ease;
         }
 
         .video-card:hover {
             transform: translateY(-5px);
-            border-color: #00f3ff;
+            border-color: var(--neon-cyan);
+            box-shadow: var(--neon-glow);
         }
 
         video {
             width: 100%;
             display: block;
-            border-bottom: 1px solid rgba(0, 243, 255, 0.2);
+            border-bottom: 1px solid rgba(0, 255, 249, 0.2);
         }
 
         .video-info {
@@ -38,75 +39,64 @@
         }
 
         .video-info h3 {
-            color: #00f3ff;
+            color: var(--neon-cyan);
             margin-bottom: 5px;
-            font-size: 1.1rem;
+            text-transform: uppercase;
+            font-family: var(--font-cyber);
+            font-size: 1rem;
         }
 
-        /* Cloud Link Button Styling */
+        .video-info p {
+            font-size: 0.8rem;
+            color: #ccc;
+        }
+
         .external-link-container {
-            margin: 20px 0 40px 0;
+            margin: 25px 0 35px 0;
             text-align: center;
         }
 
         .external-link-btn {
             display: inline-block;
             padding: 14px 30px;
-            background: rgba(0, 243, 255, 0.05);
-            color: #00f3ff;
-            border: 2px solid #00f3ff;
+            background: rgba(0, 255, 249, 0.05);
+            color: var(--neon-cyan);
+            border: 2px solid var(--neon-cyan);
             text-decoration: none;
             font-weight: bold;
             border-radius: 4px;
             transition: all 0.4s ease;
             text-transform: uppercase;
             letter-spacing: 2px;
+            font-size: 0.85rem;
+            box-shadow: var(--neon-glow);
         }
 
         .external-link-btn:hover {
-            background: #00f3ff;
-            color: #0a1128;
-            box-shadow: 0 0 30px rgba(0, 243, 255, 0.6);
+            background: var(--neon-cyan);
+            color: var(--cyber-void);
+            box-shadow: 0 0 30px var(--neon-cyan);
         }
     </style>
 </head>
 <body>
-    <script>
-        if (!sessionStorage.getItem('isLoggedIn')) {
-            window.location.href = 'login.html';
-        }
-    </script>
+    <div class="cyber-grid"></div>
 
-    <header>
-        <div class="header-container">
-            <div class="brand">
-                <h1>🦁 BRAVEHART LIFEOS</h1>
-                <p class="tagline">OPERATING SYSTEM FOR A LEGENDARY LIFE</p>
-            </div>
-            <nav class="main-nav">
-                <ul>
-                    <li><a href="index.html">🏠 DASHBOARD</a></li>
-                    <li><a href="profile.html">👤 PROFILE</a></li>
-                    <li><a href="memories.html">📸 MEMORIES</a></li>
-                    <li><a href="videos.html" class="active">🎬 VIDEOS</a></li>
-                    <li><a href="people.html">👥 PEOPLE</a></li>
-                    <li><a href="skills.html">⚡ SKILLS</a></li>
-                    <li><a href="goals.html">🎯 GOALS</a></li>
-                    <li><a href="timeline.html">📅 TIMELINE</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+    <nav class="main-nav">
+        <ul>
+            <li><a href="index.html">🏠 DASHBOARD</a></li>
+            <li><a href="profile.html">👤 PROFILE</a></li>
+            <li><a href="memories.html">📸 MEMORIES</a></li>
+            <li><a href="videos.html" class="active">🎬 VIDEOS</a></li>
+            <li><a href="people.html">👥 PEOPLE</a></li>
+            <li><a href="skills.html">⚡ SKILLS</a></li>
+            <li><a href="goals.html">🎯 GOALS</a></li>
+            <li><a href="timeline.html">📅 TIMELINE</a></li>
+        </ul>
+    </nav>
 
     <main class="container">
         <section class="page-header">
-
-            <main class="profile-container">
-    <h2 class="glitch-text" data-text="VISUAL_ARCHIVE">VISUAL_ARCHIVE</h2>
-    <div class="video-grid" id="video-container">
-        </div>
-</main>
-            <h2 style="text-align: center;">🎬 VIDEO ARCHIVE 🎬</h2>
             <div class="external-link-container">
                 <a href="https://photos.app.goo.gl/ysbffKV5LEpNnYUF8" target="_blank" class="external-link-btn">
                     🔗 OPEN CLOUD VIDEO VAULT
@@ -114,35 +104,46 @@
             </div>
         </section>
 
-        <div class="video-grid">
-            <div class="video-card">
-                <video controls preload="metadata">
-                    <source src="vid1.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <div class="video-info">
-                    <h3>MISSION LOG 01</h3>
-                    <p>Local backup of key operation footage.</p>
-                </div>
-            </div>
-
-            <div class="video-card">
-                <video controls preload="metadata">
-                    <source src="vid2.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <div class="video-info">
-                    <h3>MISSION LOG 02</h3>
-                    <p>Local backup of strategic review.</p>
-                </div>
-            </div>
+        <div class="video-grid" id="video-container">
+            <p style="text-align: center; color: var(--neon-yellow);">INITIALIZING_VIDEO_BUFFERS...</p>
         </div>
     </main>
 
-    <footer>
-        <div class="footer-content">
-            <p>🦁 BRAVEHART LIFEOS - BUILDING A LEGENDARY LIFE 🦁</p>
-        </div>
-    </footer>
+    <script>
+        // 1. Security Gate
+        if (!sessionStorage.getItem('isLoggedIn')) {
+            window.location.href = 'login.html';
+        }
+
+        // 2. Load Videos from data.json
+        async function loadVideos() {
+            try {
+                const res = await fetch('data.json');
+                const data = await res.json();
+                const container = document.getElementById('video-container');
+                
+                container.innerHTML = ''; // Clear loading text
+
+                data.videos.forEach(v => {
+                    container.innerHTML += `
+                        <div class="video-card">
+                            <video controls preload="metadata">
+                                <source src="${v.url}" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                            <div class="video-info">
+                                <h3>${v.title}</h3>
+                                <p>${v.description}</p>
+                            </div>
+                        </div>`;
+                });
+            } catch (err) {
+                console.error("VIDEO_SYNC_ERROR:", err);
+                document.getElementById('video-container').innerHTML = "<p>ERROR: VIDEO_DATABASE_OFFLINE</p>";
+            }
+        }
+
+        window.onload = loadVideos;
+    </script>
 </body>
 </html>
