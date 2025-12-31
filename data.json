@@ -125,12 +125,25 @@
       "image": "img1.jpg"
     },
     {
+      "title": "Tactical Training",
+      "date": "October 2024",
+      "image": "img1.jpg"
+    },
+    {
       "title": "OS Initialized",
       "date": "December 2024",
       "image": "img2.jpg"
     },
-    { "title": "Old Memory", "date": "Jan 2024", "image": "img1.jpg" },
-    { "title": "New Memory", "date": "Feb 2024", "image": "img2.jpg" }
+    {
+      "title": "New Memory 03",
+      "date": "January 2025",
+      "image": "img3.jpg"
+    },
+    {
+      "title": "New Memory 04",
+      "date": "February 2025",
+      "image": "img4.jpg"
+    }
   ],
   "videos": [
     {
