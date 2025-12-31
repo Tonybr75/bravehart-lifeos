@@ -15,23 +15,22 @@
         }
 
         .video-card {
-            background: rgba(10, 14, 39, 0.8);
-            border: 1px solid rgba(0, 255, 249, 0.2);
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(0, 243, 255, 0.2);
             border-radius: 8px;
             overflow: hidden;
-            transition: all 0.3s ease;
+            transition: transform 0.3s ease;
         }
 
         .video-card:hover {
             transform: translateY(-5px);
-            border-color: var(--neon-cyan);
-            box-shadow: var(--neon-glow);
+            border-color: #00f3ff;
         }
 
         video {
             width: 100%;
             display: block;
-            border-bottom: 1px solid rgba(0, 255, 249, 0.2);
+            border-bottom: 1px solid rgba(0, 243, 255, 0.2);
         }
 
         .video-info {
@@ -39,16 +38,9 @@
         }
 
         .video-info h3 {
-            color: var(--neon-cyan);
+            color: #00f3ff;
             margin-bottom: 5px;
             text-transform: uppercase;
-            font-family: var(--font-cyber);
-            font-size: 1rem;
-        }
-
-        .video-info p {
-            font-size: 0.8rem;
-            color: #ccc;
         }
 
         .external-link-container {
@@ -59,9 +51,9 @@
         .external-link-btn {
             display: inline-block;
             padding: 14px 30px;
-            background: rgba(0, 255, 249, 0.05);
-            color: var(--neon-cyan);
-            border: 2px solid var(--neon-cyan);
+            background: rgba(0, 243, 255, 0.05);
+            color: #00f3ff;
+            border: 2px solid #00f3ff;
             text-decoration: none;
             font-weight: bold;
             border-radius: 4px;
@@ -69,19 +61,16 @@
             text-transform: uppercase;
             letter-spacing: 2px;
             font-size: 0.85rem;
-            box-shadow: var(--neon-glow);
         }
 
         .external-link-btn:hover {
-            background: var(--neon-cyan);
-            color: var(--cyber-void);
-            box-shadow: 0 0 30px var(--neon-cyan);
+            background: #00f3ff;
+            color: #0a1128;
         }
     </style>
 </head>
 <body>
     <div class="cyber-grid"></div>
-
     <nav class="main-nav">
         <ul>
             <li><a href="index.html">🏠 DASHBOARD</a></li>
@@ -97,6 +86,7 @@
 
     <main class="container">
         <section class="page-header">
+            <h2 style="text-align: center;">🎬 VIDEO ARCHIVE 🎬</h2>
             <div class="external-link-container">
                 <a href="https://photos.app.goo.gl/ysbffKV5LEpNnYUF8" target="_blank" class="external-link-btn">
                     🔗 OPEN CLOUD VIDEO VAULT
@@ -104,46 +94,43 @@
             </div>
         </section>
 
-        <div class="video-grid" id="video-container">
-            <p style="text-align: center; color: var(--neon-yellow);">INITIALIZING_VIDEO_BUFFERS...</p>
+        <div class="video-grid">
+            <div class="video-card">
+                <video controls preload="metadata">
+                    <source src="vid1.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <div class="video-info">
+                    <h3>MISSION LOG 01</h3>
+                    <p>Local backup of key operation footage.</p>
+                </div>
+            </div>
+
+            <div class="video-card">
+                <video controls preload="metadata">
+                    <source src="vid2.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <div class="video-info">
+                    <h3>MISSION LOG 02</h3>
+                    <p>Local backup of strategic review.</p>
+                </div>
+            </div>
         </div>
     </main>
 
+    <footer>
+        <div class="footer-content">
+            <p style="text-align: center; padding: 20px; color: var(--neon-cyan); opacity: 0.6;">
+                🦁 BRAVEHART LIFEOS - BUILDING A LEGENDARY LIFE 🦁
+            </p>
+        </div>
+    </footer>
+
     <script>
-        // 1. Security Gate
         if (!sessionStorage.getItem('isLoggedIn')) {
             window.location.href = 'login.html';
         }
-
-        // 2. Load Videos from data.json
-        async function loadVideos() {
-            try {
-                const res = await fetch('data.json');
-                const data = await res.json();
-                const container = document.getElementById('video-container');
-                
-                container.innerHTML = ''; // Clear loading text
-
-                data.videos.forEach(v => {
-                    container.innerHTML += `
-                        <div class="video-card">
-                            <video controls preload="metadata">
-                                <source src="${v.url}" type="video/mp4">
-                                Your browser does not support the video tag.
-                            </video>
-                            <div class="video-info">
-                                <h3>${v.title}</h3>
-                                <p>${v.description}</p>
-                            </div>
-                        </div>`;
-                });
-            } catch (err) {
-                console.error("VIDEO_SYNC_ERROR:", err);
-                document.getElementById('video-container').innerHTML = "<p>ERROR: VIDEO_DATABASE_OFFLINE</p>";
-            }
-        }
-
-        window.onload = loadVideos;
     </script>
 </body>
 </html>
