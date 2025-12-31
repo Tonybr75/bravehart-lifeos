@@ -6,34 +6,33 @@
     <title>MEMORIES | BRAVEHART LIFEOS</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Specific styling for the Google Photos access button */
+        /* Modern, glow-effect button for the cloud link */
         .external-link-container {
-            margin-top: 20px;
-            margin-bottom: 30px;
+            margin: 25px 0 35px 0;
             text-align: center;
         }
 
         .external-link-btn {
             display: inline-block;
-            padding: 12px 28px;
-            background: rgba(0, 243, 255, 0.1);
+            padding: 14px 30px;
+            background: rgba(0, 243, 255, 0.05);
             color: #00f3ff;
             border: 2px solid #00f3ff;
             text-decoration: none;
             font-weight: bold;
-            border-radius: 50px; /* Rounded look for a modern UI */
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border-radius: 4px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             text-transform: uppercase;
             letter-spacing: 2px;
             font-size: 0.85rem;
-            box-shadow: 0 0 10px rgba(0, 243, 255, 0.2);
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.1);
         }
 
         .external-link-btn:hover {
             background: #00f3ff;
             color: #0a1128;
-            box-shadow: 0 0 25px rgba(0, 243, 255, 0.8);
-            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(0, 243, 255, 0.7);
+            transform: translateY(-3px);
         }
     </style>
 </head>
@@ -69,8 +68,8 @@
         <section class="page-header">
             <h2 style="text-align: center;">📸 MEMORY ARCHIVE 📸</h2>
             <div class="external-link-container">
-                <a href="https://photos.google.com/" target="_blank" class="external-link-btn">
-                    🔗 OPEN GOOGLE PHOTOS CLOUD
+                <a href="https://photos.app.goo.gl/aDw3tq54D4J1Gzi48" target="_blank" class="external-link-btn">
+                    🔗 SYNCED CLOUD ARCHIVE
                 </a>
             </div>
         </section>
@@ -98,32 +97,31 @@
                     const memoryCard = document.createElement('div');
                     memoryCard.className = 'memory-item';
                     
-                    // Entrance animation logic
+                    // Entrance animation
                     memoryCard.style.opacity = '0';
-                    memoryCard.style.transform = 'translateY(30px)';
-                    memoryCard.style.transition = 'all 0.6s ease-out';
+                    memoryCard.style.transform = 'translateY(25px)';
+                    memoryCard.style.transition = 'all 0.7s ease-out';
 
                     memoryCard.innerHTML = `
                         <img src="${memory.image}" loading="lazy" alt="${memory.title}">
                         <div class="memory-caption">
                             <span class="date">${memory.date.toUpperCase()}</span>
                             <h3>${memory.title}</h3>
-                            <p>ARCHIVE DATA RETRIEVED.</p>
+                            <p>VISUAL LOG SECURE.</p>
                         </div>
                     `;
 
                     container.appendChild(memoryCard);
 
-                    // Staggered loading to prevent delay
                     setTimeout(() => {
                         memoryCard.style.opacity = '1';
                         memoryCard.style.transform = 'translateY(0)';
-                    }, index * 100); 
+                    }, index * 120); 
                 });
 
             } catch (error) {
-                console.error("Error:", error);
-                document.getElementById('memories-container').innerHTML = "<p>OFFLINE MODE ACTIVE.</p>";
+                console.error("Load Error:", error);
+                document.getElementById('memories-container').innerHTML = "<p>DATABASE CONNECTION ERROR.</p>";
             }
         }
 
