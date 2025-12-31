@@ -39,28 +39,20 @@
     
 
     <script>
-    // 1. SECURITY GATE: Kick out unauthorized users immediately
+    // SECURITY GATE
     if (!sessionStorage.getItem('isLoggedIn')) {
         window.location.href = 'login.html';
     }
 
-    // 2. LOGOUT FUNCTION: Clears session and redirects
+    // LOGOUT FUNCTION
     function logout() {
-        // Visual feedback for shutdown
         document.body.style.filter = "grayscale(1) brightness(0.5)";
-        document.body.style.pointerEvents = "none";
-        
-        console.log("LOGGING_OUT...");
         sessionStorage.removeItem('isLoggedIn');
-        
-        setTimeout(() => {
-            window.location.href = 'login.html';
-        }, 800);
+        setTimeout(() => { window.location.href = 'login.html'; }, 800);
     }
 
-    // 3. DASHBOARD INITIALIZATION
     async function initDashboard() {
-        // Set Date & Time
+        // Set Date & Live Clock
         const updateClock = () => {
             const now = new Date();
             document.getElementById('current-date').innerText = `SYSTEM_TIME: ${now.toDateString().toUpperCase()} // ${now.toLocaleTimeString()}`;
@@ -72,25 +64,28 @@
             const res = await fetch('data.json');
             const data = await res.json();
 
-            // Load Hex Stats
+            // FULL SYSTEM STATS COUNTER
             const statContainer = document.getElementById('stat-container');
             const stats = [
                 { label: "OS_STATUS", val: data.stats.status },
-                { label: "VERSION", val: data.stats.version },
                 { label: "MEMORY_LOGS", val: data.memories.length },
-                { label: "SKILL_NODES", val: data.skills.length }
+                { label: "SKILL_NODES", val: data.skills.length },
+                { label: "ACTIVE_GOALS", val: data.goals.length },
+                { label: "PEOPLE_SYNC", val: data.people.length },
+                { label: "VIDEO_FILES", val: data.videos.length },
+                { label: "TIMELINE_EVT", val: data.timeline.length }
             ];
 
-            statContainer.innerHTML = ''; // Clear container
+            statContainer.innerHTML = ''; 
             stats.forEach(s => {
                 statContainer.innerHTML += `
                     <div class="hex-card">
-                        <p style="font-size: 0.7rem; color: var(--neon-yellow);">${s.label}</p>
-                        <h2 style="margin-top:10px;">${s.val}</h2>
+                        <p style="font-size: 0.6rem; color: var(--neon-yellow); letter-spacing:1px;">${s.label}</p>
+                        <h2 style="margin-top:10px; font-size: 1.4rem;">${s.val}</h2>
                     </div>`;
             });
 
-            // Load Radar Chart
+            // Load Radar Chart (First 6 skills)
             const ctx = document.getElementById('skillsChart').getContext('2d');
             new Chart(ctx, {
                 type: 'radar',
@@ -119,6 +114,7 @@
 
         } catch (err) { 
             console.error("DASHBOARD_SYNC_ERROR", err); 
+            document.getElementById('stat-container').innerHTML = "<p>CRITICAL_DATA_SYNC_FAILURE</p>";
         }
     }
 
