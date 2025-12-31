@@ -4,6 +4,35 @@
     <meta charset="UTF-8">
     <title>MEMORIES | BRAVEHART OS</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* This ensures the button matches the Video Vault button exactly */
+        .external-link-container {
+            margin: 25px 0 35px 0;
+            text-align: center;
+        }
+
+        .external-link-btn {
+            display: inline-block;
+            padding: 14px 30px;
+            background: rgba(0, 255, 249, 0.05);
+            color: var(--neon-cyan);
+            border: 2px solid var(--neon-cyan);
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 4px;
+            transition: all 0.4s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.85rem;
+            box-shadow: var(--neon-glow);
+        }
+
+        .external-link-btn:hover {
+            background: var(--neon-cyan);
+            color: var(--cyber-void);
+            box-shadow: 0 0 30px var(--neon-cyan);
+        }
+    </style>
 </head>
 <body>
     <div class="cyber-grid"></div>
@@ -22,12 +51,10 @@
 
     <main class="container">
         <section class="page-header">
-            <h1 class="glitch-text" style="text-align: center; margin-bottom: 10px;">// VISUAL_DATA_VAULT</h1>
+            <h1 class="glitch-text" style="text-align: center;">// VISUAL_DATA_VAULT</h1>
             
-            <div style="text-align: center; margin-bottom: 30px;">
-                <a href="https://photos.app.goo.gl/ysbffKV5LEpNnYUF8" target="_blank" 
-                   style="display: inline-block; padding: 10px 20px; border: 1px solid var(--neon-cyan); 
-                          color: var(--neon-cyan); text-decoration: none; font-size: 0.8rem; font-weight: bold;">
+            <div class="external-link-container">
+                <a href="https://photos.app.goo.gl/aDw3tq54D4J1Gzi48" target="_blank" class="external-link-btn">
                     🔗 OPEN CLOUD PHOTO VAULT
                 </a>
             </div>
@@ -48,7 +75,7 @@
                 const data = await res.json();
                 const container = document.getElementById('memories-container');
                 
-                container.innerHTML = ''; // Clear loading state
+                container.innerHTML = ''; 
 
                 data.memories.forEach(m => {
                     container.innerHTML += `
